@@ -1,0 +1,31 @@
+body {
+	font-family: sans-serif;
+	padding: 20px;
+}
+
+
+code {
+	font-family: 'Source Code Pro', 'Inconsolata', monospace;
+	font-size: 100%;
+}
+h1 {
+	margin-top: 0em;
+	margin-bottom: 0.5em;
+}
+
+.panel-heading {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+.list-group-item {
+	word-wrap: break-word;
+}
+
+.myAlignCenter {
+	text-align: center;
+}
+
+.myRegularWeight {
+	font-weight: normal;
+}
