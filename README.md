@@ -7,6 +7,10 @@ In the screenshot below, you see a directed graph where journal articles point u
 
 ![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/graph-ss.png)
 
+Thanks to the magic of sigmajs, you can click on a node to highlight just that node and its neighbours (immediate citers and citees), to get a clear view of the literature contribution of a particular paper.
+
+![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/graph-filtered-ss.png)
+
 ### 2) Assisting with literature coding
 In the screenshot below, you see a table which tracks the process of essentially filling out a form for each journal article and what kind of methodology it uses, is it relevant to the topic we are researching, etc.
 
