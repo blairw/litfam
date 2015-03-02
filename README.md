@@ -28,6 +28,8 @@ You will need to have mySQL server and PHP-capable webserver (e.g. Apache) insta
   - 3.pdf
   - (...)
   - (any other downloaded journal articles you may have)
+  - (they just need to have the name of the article_id)
+  - (i.e., files need to be named in the format, *article_id*.pdf)
 
 You'll also need to set up the database in mySQL. Unfortunately as at time of writing I don't really have much time to make this user-friendly and this is still very much a work in progress, so for the time being, your best bet is to look through the mySQL queries in the PHP files to derive the data structure :) sorry!
 
