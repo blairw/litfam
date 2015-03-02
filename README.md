@@ -33,6 +33,10 @@ You will need to have mySQL server and PHP-capable webserver (e.g. Apache) insta
 
 You'll also need to set up the database in mySQL. Unfortunately as at time of writing I don't really have much time to make this user-friendly and this is still very much a work in progress, so for the time being, your best bet is to look through the mySQL queries in the PHP files to derive the data structure :) sorry!
 
+There's also not much for creating or updating data - I'm using a mySQL management tool (HeidiSQL) to do it. You might want to use something similar or set up phpMyAdmin.
+
+![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/heidisql-ss.png)
+
 ## Credits
 - *[jQuery](https://jquery.org/)*, by jQuery Foundation, [MIT License](https://jquery.org/license/)
 - *[Bootstrap](http://getbootstrap.com/)*, by Bootstrap Core Team, Contributors and Twitter, Inc, [MIT License](https://github.com/twbs/bootstrap/blob/master/LICENSE)
