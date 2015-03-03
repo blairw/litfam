@@ -101,7 +101,7 @@ function refreshAllArticlesList() {
 					? "<td class='myAlignCenter info'><i class='warning fa fa-minus-circle'></i>" : (
 						ajaxResponse[i].bwanalysis_samplesize == null
 						? "<td class='myAlignCenter warning'><i class='warning fa fa-question-circle'></i>"
-						: "<td class='myAlignCenter success'>ajaxResponse[i].bwanalysis_samplesize"
+						: "<td class='myAlignCenter success'>"+ajaxResponse[i].bwanalysis_samplesize
 					)
 				)
 				+ "</td>" + (
@@ -109,7 +109,7 @@ function refreshAllArticlesList() {
 					? "<td class='myAlignCenter info'><i class='warning fa fa-minus-circle'></i>" : (
 						ajaxResponse[i].bwanalysis_samplesource == null
 						? "<td class='myAlignCenter warning'><i class='warning fa fa-question-circle'></i>"
-						: "<td class='myAlignCenter success'>ajaxResponse[i].bwanalysis_samplesize"
+						: "<td class='myAlignCenter success'>"+ajaxResponse[i].bwanalysis_samplesource
 					)
 				)
 				+ "</td></tr>"
