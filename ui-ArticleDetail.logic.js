@@ -69,8 +69,17 @@ function getArticleDetails() {
 			);
 		}
 		$("#ulListGroupAnalysisOverview").append(
-			"<li class='list-group-item'><strong>Synposis:</strong> "
-			+(null == data[0].bwanalysis_synopsis ? '<em>No synposis written.</em>' : data[0].bwanalysis_synopsis)
+			"<li class='list-group-item'><strong>Context + Scope of Application:</strong> "
+			+(null == data[0].bwanalysis_synopsis ? '<em>No details written.</em>' : data[0].bwanalysis_synopsis)
+			+"</li>"
+		);
+		$("#ulListGroupAnalysisOverview").append(
+			"<li class='list-group-item'><strong>Is Empirical?</strong> "
+			+(null == data[0].bwanalysis_synopsis ? '<em>Not classified.</em>' : (
+				data[0].bwanalysis_synopsis == 0
+				? "No.&nbsp;<i class='fa fa-times'></i>"
+				: "Yes.&nbsp;<i class='fa fa-check'></i>"
+			))
 			+"</li>"
 		);
 		

@@ -22,6 +22,10 @@
 			a.url             url,
 			a.bwanalysis_relevant,
 			a.bwanalysis_synopsis,
+			a.bwanalysis_empirical,
+			a.bwanalysis_quantitative,
+			a.bwanalysis_samplesize,
+			a.bwanalysis_samplesource,
 			aus.authorship_id authorship_id,
 			aus.author_id     author_id,
 			au.author_lname   author_lname,
@@ -38,22 +42,7 @@
 	
 	$arr = array();
 	while ($row = $res->fetch_assoc()) {
-		array_push($arr, array(
-			"article_id"          => $row['article_id'],
-			"title"               => $row['title'],
-			"doi"                 => $row['doi'],
-			"url"                 => $row['url'],
-			"abstract"            => $row['abstract'],
-			"authorship_id"       => $row['authorship_id'],
-			"author_id"           => $row['author_id'],
-			"author_lname"        => $row['author_lname'],
-			"author_fname"        => $row['author_fname'],
-			"author_mname"        => $row['author_mname'],
-			"university"          => $row['university'],
-			"department"          => $row['department'],
-			"bwanalysis_relevant" => $row['bwanalysis_relevant'],
-			"bwanalysis_synopsis" => $row['bwanalysis_synopsis'],
-		));
+		array_push($arr, $row);
 	}
 	$res->close();
 	$mysqli->close();
@@ -85,8 +74,12 @@
 				"doi"                    => $arr[$i]["doi"],
 				"url"                    => $arr[$i]["url"],
 				"abstract"               => $arr[$i]["abstract"],
-				"bwanalysis_relevant"    => $arr[$i]["bwanalysis_relevant"],
-				"bwanalysis_synopsis"    => $arr[$i]["bwanalysis_synopsis"],
+				"bwanalysis_relevant"        => $arr[$i]["bwanalysis_relevant"],
+				"bwanalysis_synopsis"        => $arr[$i]["bwanalysis_synopsis"],
+				"bwanalysis_empirical"       => $arr[$i]["bwanalysis_empirical"],
+				"bwanalysis_quantitative"    => $arr[$i]["bwanalysis_quantitative"],
+				"bwanalysis_samplesize"      => $arr[$i]["bwanalysis_samplesize"],
+				"bwanalysis_samplesource"    => $arr[$i]["bwanalysis_samplesource"],
 			));
 			if ($arr[$i]["authorship_id"]) {
 				$narr[count($narr)-1]["authors"] = [];

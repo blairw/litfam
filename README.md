@@ -1,6 +1,6 @@
 # 3971thesis
 ## What is this?
-This is a mySQL + PHP + JavaScript + jQuery + Bootstrap + Select2 + sigmajs + dagre tool that I am building to help me with my honours thesis. As at time of writing (March 2015), its primary capability is storing a relational database of journal articles for Literature Review and:
+This is a web application of sorts that I am building to help me with my honours thesis. As at time of writing (March 2015), its primary capability is storing a relational database of journal articles for Literature Review and:
 
 ### 1) Analysing the citations between journal articles
 In the screenshot below, you see a directed graph where journal articles point upwards to those that they cite. Each article is represented by a circular node whose radius is proportional to number of instances where the article has been cited. Therefore this graph helps you identify state of the art (i.e., the journal articles which sink to the bottom), and seminal works (i.e., the journal articles which bubble to the top and/or those which have the largest size).
@@ -43,3 +43,4 @@ There's also not much for creating or updating data - I'm using a mySQL manageme
 - *[Select2](https://select2.github.io/)*, by Kevin Brown and Igor Vaynberg, and Select2 contributors, [MIT License](https://github.com/select2/select2/blob/master/LICENSE.md)
 - *[sigmajs](http://sigmajs.org/)*, by Alexis Jacomy, [Copyright (C) 2013-2014 but use and distribution permitted](https://github.com/jacomyal/sigma.js/blob/master/LICENSE.txt)
 - *[dagre](https://github.com/cpettitt/dagre)*, by Chris Pettitt, [MIT License](https://github.com/cpettitt/dagre/blob/master/LICENSE)
+- *[Font-Awesome](http://fortawesome.github.io/Font-Awesome/)*, by Dave Gandy, [MIT License](https://github.com/FortAwesome/Font-Awesome#license)
