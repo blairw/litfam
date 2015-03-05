@@ -1,5 +1,5 @@
 function getColour(ajaxResponseItem, context) {
-	returnObject = "rgb(100,100,100)";
+	returnObject = "rgba(100,100,100,0.5)";
 	
 	if (context == 'up') {
 		thisUpB8 = ajaxResponseItem.up_b8;

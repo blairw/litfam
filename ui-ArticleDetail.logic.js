@@ -75,8 +75,8 @@ function getArticleDetails() {
 		);
 		$("#ulListGroupAnalysisOverview").append(
 			"<li class='list-group-item'><strong>Is Empirical?</strong> "
-			+(null == data[0].bwanalysis_synopsis ? '<em>Not classified.</em>' : (
-				data[0].bwanalysis_synopsis == 0
+			+(null == data[0].bwanalysis_empirical ? '<em>Not classified.</em>' : (
+				data[0].bwanalysis_empirical == 0
 				? "No.&nbsp;<i class='fa fa-times'></i>"
 				: "Yes.&nbsp;<i class='fa fa-check'></i>"
 			))

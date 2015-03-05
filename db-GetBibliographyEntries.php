@@ -11,6 +11,7 @@
 				ifnull(concat(au.author_minitials,'.'),'')
 				order by aus.sequence ASC, aus.authorship_id ASC separator ', '
 			) AS authors,
+			a.book_year AS book_year,
 			jr.pub_year AS pub_year,
 			a.title AS title,
 			j.journal_name AS journal_name,
@@ -32,21 +33,13 @@
 	while ($row = $res->fetch_assoc()) {
 		array_push($arr, array(
 			"article_id" => $row['article_id'],
-			/*
-			"authors"      => $row['authors'],
-			"pub_year"     => $row['pub_year'],
-			"title"        => $row['title'],
-			"journal_name" => $row['journal_name'],
-			"volume"       => $row['volume'],
-			"issue"        => $row['issue'],
-			"part"         => $row['part'],
-			"pg_begin"     => $row['pg_begin'],
-			"pg_end"       => $row['pg_end'],
-			*/
 			"html_citation"
-				=> $row['authors'].' ('.$row['pub_year'].') \''
-				.$row['title'].'\', <em>'
-				.$row['journal_name'].'</em>'
+				=> $row['authors']
+				.' ('.($row['book_year'] ? $row['book_year'] : $row['pub_year']).") "
+				.($row['book_year'] ? "<em>" : "'")
+				.$row['title']
+				.($row['book_year'] ? "</em>" : "'")
+				.($row['journal_name'] ? ", <em>".$row['journal_name'].'</em>' : "")
 				.($row['volume'] ? ', vol. '.$row['volume'] : '')
 				.($row['issue'] ? ', iss. '.$row['issue'] : '')
 				.($row['pg_begin'] ? ', pp. '.$row['pg_begin'].'-'.$row['pg_end'] : '')
