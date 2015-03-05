@@ -46,8 +46,8 @@
 			"html_citation"
 				=> $row['authors'].' ('.$row['pub_year'].') \''
 				.$row['title'].'\', <em>'
-				.$row['journal_name']
-				.($row['volume'] ? '</em>, vol. '.$row['volume'] : '')
+				.$row['journal_name'].'</em>'
+				.($row['volume'] ? ', vol. '.$row['volume'] : '')
 				.($row['issue'] ? ', iss. '.$row['issue'] : '')
 				.($row['pg_begin'] ? ', pp. '.$row['pg_begin'].'-'.$row['pg_end'] : '')
 		));
