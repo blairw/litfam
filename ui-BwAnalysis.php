@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Literature Coding</title>
+		<title>BW Analysis Progress</title>
 		<meta charset="utf-8">
 		<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">

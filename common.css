@@ -1,6 +1,5 @@
 body {
-	font-family: sans-serif;
-	padding: 20px;
+	font-family: 'TeX Gyre Heros', sans-serif;
 }
 
 
@@ -29,3 +28,9 @@ h1 {
 .myRegularWeight {
 	font-weight: normal;
 }
+
+/* http://stackoverflow.com/questions/274149/css-repeat-table-headers-in-print-mode */
+thead {display: table-header-group;}
+
+@media screen { body { padding: 20px; }}
+@media print { body { padding: 0px; margin: 0px; }}
