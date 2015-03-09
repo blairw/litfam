@@ -41,7 +41,7 @@
 				.($row['book_year'] ? "</em>" : "'")
 				.($row['journal_name'] ? ", <em>".$row['journal_name'].'</em>' : "")
 				.($row['volume'] ? ', vol. '.$row['volume'] : '')
-				.($row['issue'] ? ', iss. '.$row['issue'] : '')
+				.($row['issue'] ? ', no. '.$row['issue'] : '')
 				.($row['pg_begin'] ? ', pp. '.$row['pg_begin'].'-'.$row['pg_end'] : '')
 		));
 	}
