@@ -5,9 +5,9 @@
 	
 	$res = $mysqli->query("
 		SELECT
-			a.article_id, a.title,
+			a.article_id, a.title, a.pg_begin, a.pg_end, a.url as article_url, a.doi,
 			au.author_lname, au.author_fname, au.author_mname, au.author_minitials,
-			j.journal_name, 
+			j.journal_name,
 			jr.pub_year, jr.pub_month, jr.volume, jr.issue
 		FROM 3971thesis_articles a
 		JOIN 3971thesis_journal_releases jr on jr.jr_id = a.jr_id
@@ -41,6 +41,8 @@
 		if (!$found) {
 			array_push($narr, array(
 				'article_id'    => $arr[$i]['article_id'],
+				'article_url'   => $arr[$i]['article_url'],
+				'doi'           => $arr[$i]['doi'],
 				'title'         => $arr[$i]['title'],
 				'authors'       => array(),
 				'journal_name'  => $arr[$i]['journal_name'],
@@ -48,6 +50,8 @@
 				'pub_month'     => $arr[$i]['pub_month'],
 				'volume'        => $arr[$i]['volume'],
 				'issue'         => $arr[$i]['issue'],
+				'pg_begin'      => $arr[$i]['pg_begin'],
+				'pg_end'        => $arr[$i]['pg_end'],
 			));
 			if (null != $arr[$i]['author_lname']) {
 				array_push($narr[count($narr)-1]['authors'], array(
@@ -70,23 +74,28 @@
 		echo '<ref-type name="Journal Article">17</ref-type>';
 		echo '<contributors><authors>';
 		for ($j=0;$j<count($narr[$i]['authors']);$j++) {
-			echo '<author>';
-			echo '<style face="normal" font="default" size="100%">'
+			echo '<author>'
 				.$narr[$i]['authors'][$j]['author_lname']
 				.', '.$narr[$i]['authors'][$j]['author_fname']
 				.' '.$narr[$i]['authors'][$j]['author_mname']
-				.'</style>';
-			echo '</author>';
+				.'</author>';
 		}
 		echo '</authors></contributors>';
 		echo '<titles>';
-		echo '<title>';
-		echo '<style face="normal" font="default" size="100%">'.$narr[$i]['title'].'</style>';
-		echo '</title>';
+		echo '<title>'.$narr[$i]['title'].'</title>';
+		echo '<secondary-title>'.htmlentities($narr[$i]['journal_name']).'</secondary-title>';
 		echo '</titles>';
-		echo '<periodical><full-title>';
-		echo '<style face="normal" font="default" size="100%">'.htmlentities($narr[$i]['journal_name']).'</style>';
-		echo '</full-title></periodical>';
+		echo '<periodical><full-title>'.htmlentities($narr[$i]['journal_name']).'</full-title></periodical>';
+		if (isset($narr[$i]['pg_begin'])) {
+			echo '<pages>'.$narr[$i]['pg_begin'].'-'.$narr[$i]['pg_end'].'</pages>';
+		}
+		echo '<volume>'.$narr[$i]['volume'].'</volume>';
+		echo '<number>'.$narr[$i]['issue'].'</number>';
+		echo '<dates><year>'.$narr[$i]['pub_year'].'</year></dates>';
+		if (isset($narr[$i]['article_url'])) {
+			echo '<urls><related-urls><url>'.htmlentities($narr[$i]['article_url']).'</url></related-urls></urls>';
+		}
+		echo '<electronic-resource-num>'.htmlentities($narr[$i]['doi']).'</electronic-resource-num>';
 		echo '</record>';
 	}
 	echo '</records>';
