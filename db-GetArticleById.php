@@ -32,10 +32,14 @@
 			au.author_fname   author_fname,
 			au.author_mname   author_mname,
 			au.university,
-			au.department
+			au.department,
+			j.journal_id,
+			jr.jr_id
 		FROM 3971thesis_articles a
 			LEFT JOIN 3971thesis_authorship aus ON aus.article_id = a.article_id
 			LEFT JOIN 3971thesis_authors au ON au.author_id = aus.author_id
+			LEFT JOIN 3971thesis_journal_releases jr ON jr.jr_id = a.jr_id
+			LEFT JOIN 3971thesis_journals j ON j.journal_id = jr.journal_id
 		WHERE a.article_id = ".$selectedId."
 		ORDER BY a.article_id ASC, aus.sequence ASC, aus.authorship_id ASC
 	");
@@ -74,6 +78,8 @@
 				"doi"                    => $arr[$i]["doi"],
 				"url"                    => $arr[$i]["url"],
 				"abstract"               => $arr[$i]["abstract"],
+				"journal_id"               => $arr[$i]["journal_id"],
+				"jr_id"                    => $arr[$i]["jr_id"],
 				"bwanalysis_relevant"        => $arr[$i]["bwanalysis_relevant"],
 				"bwanalysis_synopsis"        => $arr[$i]["bwanalysis_synopsis"],
 				"bwanalysis_empirical"       => $arr[$i]["bwanalysis_empirical"],

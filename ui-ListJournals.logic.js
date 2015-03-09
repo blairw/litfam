@@ -26,7 +26,7 @@ function bodyDidLoad() {
 			$("#tbodyForJournalsTable").append(
 				"<tr>"
 					+ "<td>"+ajaxResponse[i].journal_id+"</td>"
-					+ "<td>"+ajaxResponse[i].journal_code+"</td>"
+					+ "<td><code>"+ajaxResponse[i].journal_code+"</code></td>"
 					+ "<td><strong><a href='ui-ListJournalReleases.php?id="+ajaxResponse[i].journal_id+"'>"+ajaxResponse[i].journal_name+"</a></strong></td>"
 					+ "<td"
 						+(

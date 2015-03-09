@@ -38,7 +38,8 @@ $thisArticleId = (
 		<div class="row">
 			<div class="col-md-6">
 				<h1 id="divArticleName"></h1>
-				<div id="divArticleSubtitle"></div>
+				<p id="pArticleSubtitle"></p>
+				<p id="pForJournalDetails"></p>
 			</div>
 			<div class="col-md-6">
 				<div class="panel panel-default">

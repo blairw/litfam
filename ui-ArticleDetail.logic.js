@@ -11,6 +11,21 @@ function bodyDidLoad() {
 
 function getArticleDetails() {
 	$.get("db-GetArticleById.php?id="+selectedArticleId, function(data) {
+		$("#pForJournalDetails").html(
+			"<a href='ui-ListJournals.php'>"
+				+'<i class="fa fa-level-up"></i>&nbsp;'
+				+"All Journals</a>"
+				+"<br />"
+				+"<a href='ui-ListJournalReleases.php?id="
+				+data[0].journal_id+"'>"
+				+'<i class="fa fa-level-up"></i>&nbsp;'
+				+"All Releases of this Journal</a>"
+				+"<br />"
+				+"<a href='ui-ListArticlesInJournalRelease.php?id="
+				+data[0].jr_id+"'>"
+				+'<i class="fa fa-level-up"></i>&nbsp;'
+				+"All Articles in this Release</a>"
+		);
 		
 		// clear existing
 		$("#divArticleName").html("");
@@ -147,10 +162,10 @@ function getArticleBibRefs() {
 		for (var i = 0; i < arrayOfBibRefs.length; i++) {
 			if (arrayOfBibRefs[i].article_id == selectedArticleId) {
 				// clear existing
-				$("#divArticleSubtitle").html("");
+				$("#pArticleSubtitle").html("");
 				
 				// add from db
-				$("#divArticleSubtitle").append(arrayOfBibRefs[i].html_citation);
+				$("#pArticleSubtitle").append(arrayOfBibRefs[i].html_citation);
 			}
 		}
 		
