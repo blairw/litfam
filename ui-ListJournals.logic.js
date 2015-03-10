@@ -4,7 +4,7 @@ var minArticles;
 var maxArticles;
 
 function shadeBySeverity(min, max, thisOne) {
-	var percentageSeverity = Math.pow((thisOne-min)/(max-min),0.2);
+	var percentageSeverity = Math.pow((thisOne-min)/(max-min),1);
 	return "rgba(255,100,100,"+(1-percentageSeverity)+")";
 }
 
