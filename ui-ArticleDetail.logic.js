@@ -34,6 +34,7 @@ function getArticleDetails() {
 		$("#divPanelBodyAbstract").html("");
 		$("#ulListGroupReadThisArticle").html("");
 		$("#ulListGroupAnalysisOverview").html("");
+		$("#ulListGroupGroups").html("");
 		
 		// add from db
 		document.title = '[#' + data[0].article_id + '] ' + data[0].title;
@@ -70,19 +71,6 @@ function getArticleDetails() {
 				+"</a></li>"
 			);
 		}
-		if (1 == data[0].bwanalysis_relevant) {
-			$("#ulListGroupAnalysisOverview").append(
-				"<li class='list-group-item list-group-item-success'><i class='fa fa-check-circle'></i>&nbsp;&nbsp;This article is relevant to <em>Persuasive Information Systems</em>.</li>"
-			);
-		} else if (0 == data[0].bwanalysis_relevant) {
-			$("#ulListGroupAnalysisOverview").append(
-				"<li class='list-group-item list-group-item-danger'><i class='fa fa-times-circle'></i>&nbsp;&nbsp;This article is not relevant to <em>Persuasive Information Systems</em>.</li>"
-			);
-		} else {
-			$("#ulListGroupAnalysisOverview").append(
-				"<li class='list-group-item list-group-item-info'><i class='fa fa-question-circle'></i>&nbsp;&nbsp;Pending judgement re: relevance.</li>"
-			);
-		}
 		$("#ulListGroupAnalysisOverview").append(
 			"<li class='list-group-item'><strong>Context + Scope of Application:</strong> "
 			+(null == data[0].bwanalysis_synopsis ? '<em>No details written.</em>' : data[0].bwanalysis_synopsis)
@@ -97,6 +85,18 @@ function getArticleDetails() {
 			))
 			+"</li>"
 		);
+		groupsFound = false;
+		for (i = 0; i < data[0].groups.length; i++) {
+			$("#ulListGroupGroups").append(
+				'<li class="list-group-item">'+data[0].groups[i].group_name+'</li>'
+			);
+			groupsFound = true;
+		}
+		if (!groupsFound) {
+			$("#ulListGroupGroups").append(
+				'<li class="list-group-item"><em>No groups.</em></li>'
+			);
+		}
 		
 		if (data[0].doi) {
 			getDoiDetails(data[0].doi);

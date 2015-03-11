@@ -47,19 +47,10 @@ $thisArticleId = (
 					<ul class="list-group" id="ulListGroupAnalysisOverview"></ul>
 				</div>
 			</div>
-		</div>
-		<h2 class="page-header">Citation Analysis</h2>
-		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">Upstream</div>
-					<ul class="list-group" id="citationsUpstream"></ul>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">Downstream</div>
-					<ul class="list-group" id="citationsDownstream"></ul>
+					<div class="panel-heading">Groups</div>
+					<ul class="list-group" id="ulListGroupGroups"></ul>
 				</div>
 			</div>
 		</div>
@@ -106,6 +97,21 @@ $thisArticleId = (
 					<div class="panel-heading">DOI details</div>
 					<div class="panel-body" id="divDoiDetailsPanelBody"></div>
 					<div class="panel-footer" id="divDoiDetailsPanelFooter"></div>
+				</div>
+			</div>
+		</div>
+		<h2 class="page-header">Citation Analysis</h2>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">Upstream</div>
+					<ul class="list-group" id="citationsUpstream"></ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">Downstream</div>
+					<ul class="list-group" id="citationsDownstream"></ul>
 				</div>
 			</div>
 		</div>
