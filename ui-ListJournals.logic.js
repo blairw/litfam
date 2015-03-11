@@ -4,21 +4,27 @@ var minArticles;
 var maxArticles;
 
 function shadeBySeverity(min, max, thisOne) {
-	var percentageSeverity = Math.pow((thisOne-min)/(max-min),1);
-	return "rgba(255,100,100,"+(1-percentageSeverity)+")";
+	var percentageSeverity = Math.pow(((thisOne-min)/(max-min)),0.5);
+	return "rgba(255,100,100,"+(percentageSeverity)+")";
 }
 
 function bodyDidLoad() {
 	$.get("db-getAllJournals.php", function(ajaxResponse) {
-		minReleases = ajaxResponse[0].count_jr;
-		maxReleases = ajaxResponse[0].count_jr;
-		minArticles = ajaxResponse[0].count_article;
-		maxArticles = ajaxResponse[0].count_article;
-		for (i=0;i<ajaxResponse.length;i++) {
-			if (ajaxResponse[i].count_jr < minReleases) minReleases = ajaxResponse[i].count_jr;
-			if (ajaxResponse[i].count_jr > maxReleases) maxReleases = ajaxResponse[i].count_jr;
-			if (ajaxResponse[i].count_article < minArticles) minArticles = ajaxResponse[i].count_article;
-			if (ajaxResponse[i].count_article > maxArticles) maxArticles = ajaxResponse[i].count_article;
+		minReleases = parseInt(ajaxResponse[0].count_jr);
+		maxReleases = parseInt(ajaxResponse[0].count_jr);
+		minArticles = parseInt(ajaxResponse[0].count_article);
+		maxArticles = parseInt(ajaxResponse[0].count_article);
+		for (i=0;i<ajaxResponse.length;i++) {				
+			console.log("minReleases "+minReleases);
+			console.log("maxReleases "+maxReleases);
+			console.log("minArticles "+minArticles);
+			console.log("maxArticles "+maxArticles);
+
+			if (parseInt(ajaxResponse[i].count_jr) < minReleases)      minReleases = parseInt(ajaxResponse[i].count_jr);
+			if (parseInt(ajaxResponse[i].count_jr) > maxReleases)      maxReleases = parseInt(ajaxResponse[i].count_jr);
+			if (parseInt(ajaxResponse[i].count_article) < minArticles) minArticles = parseInt(ajaxResponse[i].count_article);
+			if (parseInt(ajaxResponse[i].count_article) > maxArticles) maxArticles = parseInt(ajaxResponse[i].count_article);
+			
 		}
 		
 		

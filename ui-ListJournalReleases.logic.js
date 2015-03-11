@@ -21,15 +21,15 @@ function monthToString(monthInt) {
 
 function bodyDidLoad() {
 	$.get("db-GetJrByJournalId.php?id="+selectedJournalId, function(ajaxResponse) {
-		minYear = ajaxResponse[0].pub_year;
-		maxYear = ajaxResponse[0].pub_year;
-		minArticles = ajaxResponse[0].count_article;
-		maxArticles = ajaxResponse[0].count_article;
+		minYear     = parseInt(ajaxResponse[0].pub_year);
+		maxYear     = parseInt(ajaxResponse[0].pub_year);
+		minArticles = parseInt(ajaxResponse[0].count_article);
+		maxArticles = parseInt(ajaxResponse[0].count_article);
 		for (i=0;i<ajaxResponse.length;i++){
-			if (ajaxResponse[i].pub_year < minYear) minYear = ajaxResponse[i].pub_year;
-			if (ajaxResponse[i].pub_year > maxYear) maxYear = ajaxResponse[i].pub_year;
-			if (ajaxResponse[i].count_article < minArticles) minArticles = ajaxResponse[i].count_article;
-			if (ajaxResponse[i].count_article > maxArticles) maxArticles = ajaxResponse[i].count_article;
+			if (parseInt(ajaxResponse[i].pub_year)      < minYear)     minYear     = parseInt(ajaxResponse[i].pub_year);
+			if (parseInt(ajaxResponse[i].pub_year)      > maxYear)     maxYear     = parseInt(ajaxResponse[i].pub_year);
+			if (parseInt(ajaxResponse[i].count_article) < minArticles) minArticles = parseInt(ajaxResponse[i].count_article);
+			if (parseInt(ajaxResponse[i].count_article) > maxArticles) maxArticles = parseInt(ajaxResponse[i].count_article);
 		}
 		
 		$("#h1ForJournalName").html(ajaxResponse[0].journal_name);
@@ -44,7 +44,7 @@ function bodyDidLoad() {
 			$("#tbodyForJournalReleasesTable").append(
 				"<tr>"
 					+"<td>"+ajaxResponse[i].jr_id+"</td>"
-					+"<td style='background-color: "+shadeBySeverity(minYear, maxYear, ajaxResponse[i].pub_year, 1, 'no-invert')+";'>"
+					+"<td style='background-color: "+shadeBySeverity(minYear, maxYear, ajaxResponse[i].pub_year, 5, 'no-invert')+";'>"
 						+ajaxResponse[i].pub_year
 						+"</td>"
 					+"<td>"+monthToString(ajaxResponse[i].pub_month)+"</td>"
