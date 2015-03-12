@@ -1,3 +1,5 @@
+var NOT_RELEVANT_GROUP = 5;
+
 function bodyDidLoad() {
 	refreshAllArticlesList();
 }
@@ -6,7 +8,7 @@ function refreshAllArticlesList() {
 	$.get("db-GetAllBwAnalysisStatus.php", function(ajaxResponse) {
 		var countersForEachField = {
 			authors:      0,
-			relevant:     0,
+			litcoding:    0,
 			synopsis:     0,
 			empirical:    0,
 			samplesize:   0,
@@ -16,7 +18,7 @@ function refreshAllArticlesList() {
 		for (i=0;i<ajaxResponse.length;i++) {
 			countersForEachField.itemsCounted++;
 			if (ajaxResponse[i].authors != ' ')                  countersForEachField.authors++;
-			if (ajaxResponse[i].bwanalysis_relevant != null)     countersForEachField.relevant++;
+			if (ajaxResponse[i].group_id != null)                countersForEachField.litcoding++;
 			if (ajaxResponse[i].bwanalysis_synopsis != null)     countersForEachField.synopsis++;
 			if (ajaxResponse[i].bwanalysis_empirical != null)    countersForEachField.empirical++;
 			if (ajaxResponse[i].bwanalysis_samplesize != null)   countersForEachField.samplesize++;
@@ -35,10 +37,10 @@ function refreshAllArticlesList() {
 			+ "</th><th>Journal"
 			+ "</th><th>Volume"
 			+ "</th><th>Issue"
-			+ "</th><th>Relevant?"
+			+ "</th><th>Literature Coding?"
 				+ " <small class='myRegularWeight'>("
-				+countersForEachField.relevant+"/"+countersForEachField.itemsCounted
-				+"&nbsp;=&nbsp;"+Math.floor(100*countersForEachField.relevant/countersForEachField.itemsCounted)+"%"
+				+countersForEachField.litcoding+"/"+countersForEachField.itemsCounted
+				+"&nbsp;=&nbsp;"+Math.floor(100*countersForEachField.litcoding/countersForEachField.itemsCounted)+"%"
 				+")</small>"
 			+ "</th><th>Synopsis?"
 				+ " <small class='myRegularWeight'>("
@@ -73,9 +75,9 @@ function refreshAllArticlesList() {
 				+ "</td><td>" + (ajaxResponse[i].volume != ' ' ? ajaxResponse[i].volume : "<em>No volume listed</em>")
 				+ "</td><td>" + (ajaxResponse[i].issue != ' ' ? ajaxResponse[i].issue : "<em>No issue listed</em>")
 				+ "</td>" + (
-					ajaxResponse[i].bwanalysis_relevant == null
+					ajaxResponse[i].group_id == null
 					? "<td class='myAlignCenter warning'><i class='warning fa fa-question-circle'></i>" : (
-						ajaxResponse[i].bwanalysis_relevant == 0
+						ajaxResponse[i].group_id != 1
 						? "<td class='myAlignCenter danger'><i class='danger fa fa-times-circle'></i>"
 						: "<td class='myAlignCenter success'><i class='success fa fa-check-circle'></i>"
 					)
@@ -86,7 +88,7 @@ function refreshAllArticlesList() {
 					: "<td class='myAlignCenter success'><span class='success fa fa-check-circle'></span>"
 				)
 				+ "</td>" + (
-					ajaxResponse[i].bwanalysis_relevant == 0
+					ajaxResponse[i].group_id == NOT_RELEVANT_GROUP
 					? "<td class='myAlignCenter info'><i class='warning fa fa-minus-circle'></i>" : (
 						ajaxResponse[i].bwanalysis_empirical == null
 						? "<td class='myAlignCenter warning'><span class='warning fa fa-question-circle'></span>" : (
@@ -97,7 +99,7 @@ function refreshAllArticlesList() {
 					)
 				)
 				+ "</td>" + (
-					ajaxResponse[i].bwanalysis_relevant == 0
+					ajaxResponse[i].group_id == NOT_RELEVANT_GROUP
 					? "<td class='myAlignCenter info'><i class='warning fa fa-minus-circle'></i>" : (
 						ajaxResponse[i].bwanalysis_samplesize == null
 						? "<td class='myAlignCenter warning'><i class='warning fa fa-question-circle'></i>"
@@ -105,7 +107,7 @@ function refreshAllArticlesList() {
 					)
 				)
 				+ "</td>" + (
-					ajaxResponse[i].bwanalysis_relevant == 0
+					ajaxResponse[i].group_id == NOT_RELEVANT_GROUP
 					? "<td class='myAlignCenter info'><i class='warning fa fa-minus-circle'></i>" : (
 						ajaxResponse[i].bwanalysis_samplesource == null
 						? "<td class='myAlignCenter warning'><i class='warning fa fa-question-circle'></i>"
