@@ -1,3 +1,5 @@
+var NOT_RELEVANT_VALUE = 5;
+
 function bodyDidLoad() {
 	// select2
 	$("#selectAuthors").select2({
@@ -87,8 +89,14 @@ function getArticleDetails() {
 		);
 		groupsFound = false;
 		for (i = 0; i < data[0].groups.length; i++) {
+			prepareClassName = "list-group-item";
+			if (data[0].groups[i].group_id == 1) {
+				prepareClassName += " list-group-item-success";
+			} else if (data[0].groups[i].group_id == NOT_RELEVANT_VALUE) {
+				prepareClassName += " list-group-item-danger";
+			}
 			$("#ulListGroupGroups").append(
-				'<li class="list-group-item">'+data[0].groups[i].group_name+'</li>'
+				'<li class="'+prepareClassName+'">'+data[0].groups[i].group_name+'</li>'
 			);
 			groupsFound = true;
 		}

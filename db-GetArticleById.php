@@ -113,7 +113,7 @@
 				"bwanalysis_samplesize"      => $arr[$i]["bwanalysis_samplesize"],
 				"bwanalysis_samplesource"    => $arr[$i]["bwanalysis_samplesource"],
 				"authors" => array(),
-				"groups" => array(),
+				"groups"  => array(),
 			));
 			if ($arr[$i]["authorship_id"]) {
 				array_push($narr[count($narr)-1]["authors"], array(
@@ -124,6 +124,13 @@
 					"author_mname"  => $arr[$i]["author_mname"],
 					"university"    => $arr[$i]["university"],
 					"department"    => $arr[$i]["department"],
+				));
+			}
+			if ($arr[$i]["membership_id"]) {
+				array_push($narr[count($narr)-1]["groups"], array(
+					"membership_id" => $arr[$i]["membership_id"],
+					"group_id"      => $arr[$i]["group_id"],
+					"group_name"    => $arr[$i]["group_name"],
 				));
 			}
 		}
