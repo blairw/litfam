@@ -4,12 +4,25 @@
 	
 	$res = $mysqli->query("
 		select
-			articles.create_date,
+			alldates.create_date,
 			ifnull(counter_indexed,0) counter_indexed,
 			ifnull(counter_incl,0) counter_incl,
 			ifnull(counter_excl,0) counter_excl,
 			ifnull(counter_incl+counter_excl,0) as total_coded
 		from
+			(
+				select distinct create_date from
+				(
+					select distinct date(a.create_ts) as create_date from 3971thesis_articles a
+						left join 3971thesis_journal_releases jr on a.jr_id = jr.jr_id
+						left join 3971thesis_journals j on j.journal_id = jr.journal_id
+						where j.is_basket_of_8 = 1
+					union all select distinct date(create_ts) as create_date from 3971thesis_membership where group_id = 1
+					union all select distinct date(create_ts) as create_date from 3971thesis_membership where group_id = 5
+					order by 1 asc
+				) temp
+			) alldates
+		left join
 			(
 				select
 					count(a.article_id) counter_indexed,
@@ -19,7 +32,7 @@
 					left join 3971thesis_journals j on j.journal_id = jr.journal_id
 				where j.is_basket_of_8 = 1
 				group by date(create_ts)
-			) articles
+			) articles on articles.create_date = alldates.create_date
 		left join
 			(
 				select
@@ -28,7 +41,7 @@
 				from 3971thesis_membership
 				where group_id = 1
 				group by date(create_ts)
-			) includes on articles.create_date = includes.create_date
+			) includes on includes.create_date = alldates.create_date
 		left join
 			(
 				select
@@ -37,7 +50,7 @@
 				from 3971thesis_membership
 				where group_id = 5
 				group by date(create_ts)
-			) excludes on includes.create_date = excludes.create_date
+			) excludes on excludes.create_date = alldates.create_date
 		order by 1 asc
 	");
 	
