@@ -44,6 +44,7 @@ There's also not much for creating or updating data - I'm using a mySQL manageme
 - *[jQuery](https://jquery.org/)*, by jQuery Foundation, [MIT License](https://jquery.org/license/)
 - *[Bootstrap](http://getbootstrap.com/)*, by Bootstrap Core Team, Contributors and Twitter, Inc, [MIT License](https://github.com/twbs/bootstrap/blob/master/LICENSE)
 - *[Select2](https://select2.github.io/)*, by Kevin Brown and Igor Vaynberg, and Select2 contributors, [MIT License](https://github.com/select2/select2/blob/master/LICENSE.md)
+- *[chartjs](http://www.chartjs.org/)*, by Nick Downie, [MIT License](http://www.chartjs.org/docs/#notes-license)
 - *[sigmajs](http://sigmajs.org/)*, by Alexis Jacomy, [Copyright (C) 2013-2014 but use and distribution permitted](https://github.com/jacomyal/sigma.js/blob/master/LICENSE.txt)
 - *[dagre](https://github.com/cpettitt/dagre)*, by Chris Pettitt, [MIT License](https://github.com/cpettitt/dagre/blob/master/LICENSE)
 - *[Font-Awesome](http://fortawesome.github.io/Font-Awesome/)*, by Dave Gandy, [MIT License](https://github.com/FortAwesome/Font-Awesome#license)
