@@ -70,9 +70,12 @@ function refreshAllArticlesList() {
 		for (i=0;i<ajaxResponse.length;i++) {
 			$("#tbodyForAllArticles").append(
 				"<tr><td>"
-				+ "<strong><a target='_blank' href='ui-ArticleDetail.php?id="+ajaxResponse[i].article_id+"'>#"+ajaxResponse[i].article_id+"</a></strong>"
+				+ ajaxResponse[i].article_id
 				+ "</td>" + (ajaxResponse[i].authors != ' ' ? '<td>'+ajaxResponse[i].authors : "<td class='warning'><em>No authors listed</em>")
-				+ "</td><td>" + (ajaxResponse[i].title != ' ' ? ajaxResponse[i].title : "<em>No title listed</em>")
+				+ "</td><td>" 
+					+ "<strong><a target='_blank' href='ui-ArticleDetail.php?id="+ajaxResponse[i].article_id+"'>"
+					+ (ajaxResponse[i].title != ' ' ? ajaxResponse[i].title : "<em>No title listed</em>")
+					+ "</a></strong>"
 				+ "</td><td>" + (ajaxResponse[i].journal_code != ' ' ? ajaxResponse[i].journal_code : "<em>No Journal listed</em>")
 				+ "</td><td>" + (ajaxResponse[i].volume != ' ' ? ajaxResponse[i].volume : "<em>No volume listed</em>")
 				+ "</td><td>" + (ajaxResponse[i].issue != ' ' ? ajaxResponse[i].issue : "<em>No issue listed</em>")
