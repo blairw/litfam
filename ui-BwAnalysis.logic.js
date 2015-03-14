@@ -62,7 +62,9 @@ function refreshAllArticlesList() {
 				+countersForEachField.samplesource+"/"+countersForEachField.itemsCounted
 				+"&nbsp;=&nbsp;"+Math.floor(100*countersForEachField.samplesource/countersForEachField.itemsCounted)+"%"
 				+")</small>"
-			+ "</th></tr>"
+			+ "</th>"
+			+ "<th>PDF</th>"
+			+ "</tr>"
 		);
 		
 		for (i=0;i<ajaxResponse.length;i++) {
@@ -114,7 +116,9 @@ function refreshAllArticlesList() {
 						: "<td class='myAlignCenter success'>"+ajaxResponse[i].bwanalysis_samplesource
 					)
 				)
-				+ "</td></tr>"
+				+ "</td>"
+				+ "<td>" + "<strong><a target='_blank' href='../3971thesis-files/"+ajaxResponse[i].article_id+".pdf'>PDF"+"</a></strong>" + "</td>"
+				+ "</tr>"
 			);
 		}	
 	});

@@ -1,0 +1,82 @@
+<script src="frameworks/Chart.min.js"></script>
+<script src="frameworks/jquery-1.11.2.min.js"></script>
+<canvas id="myChart" width="900px" height="500px"></canvas>
+<div id="myChartLegend"></div>
+<script>
+	$.get("db-GraphLitCodingProgress.php", function(ajaxResponse) {
+		// force cumulative
+		for (var i=1;i<ajaxResponse.length;i++) {
+			ajaxResponse[i].counter_indexed = parseInt(ajaxResponse[i].counter_indexed);
+			ajaxResponse[i].counter_incl = parseInt(ajaxResponse[i].counter_incl);
+			ajaxResponse[i].counter_excl = parseInt(ajaxResponse[i].counter_excl);
+			ajaxResponse[i].total_coded = parseInt(ajaxResponse[i].total_coded);
+			ajaxResponse[i].counter_indexed += parseInt(ajaxResponse[i-1].counter_indexed);
+			ajaxResponse[i].counter_incl += parseInt(ajaxResponse[i-1].counter_incl);
+			ajaxResponse[i].counter_excl += parseInt(ajaxResponse[i-1].counter_excl);
+			ajaxResponse[i].total_coded += parseInt(ajaxResponse[i-1].total_coded);
+		}
+		
+		var ctx = document.getElementById("myChart").getContext("2d");
+		var graphOptions = {
+			bezierCurve : true,
+			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"color:<%=datasets[i].strokeColor%>\">&#9608;</span>&nbsp;<%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+		}
+		var graphData = {
+			labels: [],
+			datasets: [
+				{
+					label: "Journal articles indexed",
+					fillColor: "rgba(255,0,255,0.02)",
+					strokeColor: "rgba(255,0,255,1)",
+					pointColor: "rgba(255,0,255,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(255,0,255,1)",
+					data: []
+				},
+				{
+					label: "Journal articles classified",
+					fillColor: "rgba(0,0,255,0.02)",
+					strokeColor: "rgba(0,0,255,1)",
+					pointColor: "rgba(0,0,255,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(0,0,255,1)",
+					data: []
+				},
+				{
+					label: "Classified as relevant",
+					fillColor: "rgba(192,0,0,0.1)",
+					strokeColor: "rgba(192,0,0,1)",
+					pointColor: "rgba(192,0,0,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(192,0,0,1)",
+					data: []
+				},
+				{
+					label: "Classified as irrelevant",
+					fillColor: "rgba(0,192,0,0.2)",
+					strokeColor: "rgba(0,192,0,1)",
+					pointColor: "rgba(0,192,0,1)",
+					pointStrokeColor: "#fff",
+					pointHighlightFill: "#fff",
+					pointHighlightStroke: "rgba(0,192,0,1)",
+					data: []
+				}
+			]
+		};
+		
+		for (i=0; i<ajaxResponse.length; i++) {
+			graphData.labels.push(ajaxResponse[i].create_date.toString());
+			graphData.datasets[0].data.push(ajaxResponse[i].counter_indexed);
+			graphData.datasets[1].data.push(ajaxResponse[i].total_coded);
+			graphData.datasets[2].data.push(ajaxResponse[i].counter_excl);
+			graphData.datasets[3].data.push(ajaxResponse[i].counter_incl);
+		}
+		
+		var myLineChart = new Chart(ctx).Line(graphData, graphOptions);
+		
+		$("#myChartLegend").html(myLineChart.generateLegend());
+	});
+</script>

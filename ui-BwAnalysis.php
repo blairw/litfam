@@ -22,7 +22,6 @@
 		<!--other-->
 		<script src="ui-BwAnalysis.logic.js"></script>
 		<link rel="stylesheet" href="common.css">
-		<link rel="stylesheet" href="ui-BwAnalysis.css">
 		<link rel="icon" type="image/png" href="frameworks/fugue-subset/document-smiley.png?v=2" />
 	</head>
 	<body onload="bodyDidLoad()">
