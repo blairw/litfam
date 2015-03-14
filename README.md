@@ -5,19 +5,19 @@ This is a web application of sorts that I am building to help me with my honours
 ### 1) Analysing the citations between journal articles
 In the screenshot below, you see a directed graph where journal articles point upwards to those that they cite. Each article is represented by a circular node whose radius is proportional to number of instances where the article has been cited. Therefore this graph helps you identify state of the art (i.e., the journal articles which sink to the bottom), and seminal works (i.e., the journal articles which bubble to the top and/or those which have the largest size).
 
-![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/graph-ss.png)
+![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/graph-ss.png?v=2)
 
 Thanks to the magic of sigmajs, you can click on a node to highlight just that node and its neighbours (immediate citers and citees), to get a clear view of the literature contribution of a particular paper.
 
-![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/graph-filtered-ss.png)
+![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/graph-filtered-ss.png?v=2)
 
 ### 2) Assisting with literature coding
 In the screenshot below, you see a table which tracks the process of essentially filling out a form for each journal article and what kind of methodology it uses, is it relevant to the topic we are researching, etc.
 
-![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/lit-coding-ss.png)
+![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/lit-coding-ss.png?v=2)
 
 We also graph this as a line graph to motivate you to work harder :)
-![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/lit-coding-graph-ss.png)
+![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/lit-coding-graph-ss.png?v=2)
 
 ## How do I install this?
 You will need to have mySQL server and PHP-capable webserver (e.g. Apache) installed on your system. Then you will need to clone 3971thesis into a directory in your webserver public HTML directory and set up two other directories alongside 3971thesis:
