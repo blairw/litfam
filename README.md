@@ -16,6 +16,9 @@ In the screenshot below, you see a table which tracks the process of essentially
 
 ![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/lit-coding-ss.png)
 
+We also graph this as a line graph to motivate you to work harder :)
+![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/lit-coding-graph-ss.png)
+
 ## How do I install this?
 You will need to have mySQL server and PHP-capable webserver (e.g. Apache) installed on your system. Then you will need to clone 3971thesis into a directory in your webserver public HTML directory and set up two other directories alongside 3971thesis:
 
