@@ -25,24 +25,9 @@
 		<link rel="icon" type="image/png" href="frameworks/fugue-subset/document-smiley.png?v=2" />
 	</head>
 	<body onload="bodyDidLoad()">
-		<div class="row">
-			<div class="col-md-10">
-				<div class="panel panel-default">
-					<div class="panel-heading">All Articles</div>
-					<table class="table table-bordered"><tbody id="tbodyForAllArticles"></tbody></table>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="panel panel-default">
-					<div class="panel-heading">Filters</div>
-					<ul class="list-group">
-						<li class="list-group-item">Filters coming soon.</li>
-						<li class="list-group-item active">Filters coming soon.</li>
-						<li class="list-group-item">Filters coming soon.</li>
-						<li class="list-group-item">Filters coming soon.</li>
-					</ul>
-				</div>
-			</div>
+		<div class="panel panel-default">
+			<div class="panel-heading">All Articles</div>
+			<table class="table table-bordered"><tbody id="tbodyForAllArticles"></tbody></table>
 		</div>
 	</body>
 </html>

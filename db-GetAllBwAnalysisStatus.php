@@ -32,7 +32,7 @@
 			left join 3971thesis_authors au          on au.author_id = aus.author_id
 		where j.is_basket_of_8 = 1 and jr.pub_year > 2009
 		group by a.article_id
-		order by jr.journal_id,jr.volume,jr.issue,jr.part,a.pg_begin
+		order by m.group_id asc, jr.journal_id desc,jr.volume desc,jr.issue desc,jr.part desc,a.pg_begin desc
 	");
 	
 	$arr = array();

@@ -8,15 +8,15 @@
 			ifnull(counter_indexed,0) counter_indexed,
 			ifnull(counter_incl,0) counter_incl,
 			ifnull(counter_excl,0) counter_excl,
-			ifnull(counter_incl+counter_excl,0) as total_coded
+			ifnull(counter_incl,0)+ifnull(counter_excl,0) as total_coded
 		from
 			(
 				select distinct create_date from
 				(
 					select distinct date(a.create_ts) as create_date from 3971thesis_articles a
-						left join 3971thesis_journal_releases jr on a.jr_id = jr.jr_id
-						left join 3971thesis_journals j on j.journal_id = jr.journal_id
-						where j.is_basket_of_8 = 1
+						join 3971thesis_journal_releases jr on a.jr_id = jr.jr_id
+						join 3971thesis_journals j on j.journal_id = jr.journal_id
+						where j.is_basket_of_8 = 1 and jr.pub_year >= 2010
 					union all select distinct date(create_ts) as create_date from 3971thesis_membership where group_id = 1
 					union all select distinct date(create_ts) as create_date from 3971thesis_membership where group_id = 5
 					order by 1 asc
@@ -28,9 +28,9 @@
 					count(a.article_id) counter_indexed,
 					date(a.create_ts) as create_date
 				from 3971thesis_articles a
-					left join 3971thesis_journal_releases jr on a.jr_id = jr.jr_id
-					left join 3971thesis_journals j on j.journal_id = jr.journal_id
-				where j.is_basket_of_8 = 1
+					join 3971thesis_journal_releases jr on a.jr_id = jr.jr_id
+					join 3971thesis_journals j on j.journal_id = jr.journal_id
+				where j.is_basket_of_8 = 1 and jr.pub_year >= 2010
 				group by date(create_ts)
 			) articles on articles.create_date = alldates.create_date
 		left join

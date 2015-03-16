@@ -121,8 +121,22 @@ function refreshAllArticlesList() {
 				)
 				+ "</td>"
 				+ "<td>" + "<strong><a target='_blank' href='../3971thesis-files/"+ajaxResponse[i].article_id+".pdf'>PDF"+"</a></strong>" + "</td>"
+				+ "<td>" + "<button class='btn btn-success' onclick='addItemToGroup(1,"+ajaxResponse[i].article_id+")'>Accept"+"</button>" + "</td>"
+				+ "<td>" + "<button class='btn btn-danger'  onclick='addItemToGroup(5,"+ajaxResponse[i].article_id+")'>Reject"+"</button>" + "</td>"
 				+ "</tr>"
 			);
 		}	
 	});
+}
+
+function addItemToGroup(thisGroupId, thisArticleId) {
+	$.post("db-SetMembershipToArticle.php", {
+		articleId: thisArticleId,
+		groupId: thisGroupId
+	}).done(
+		function(data) {
+			console.log(data);
+			refreshAllArticlesList();
+		}
+	);
 }
