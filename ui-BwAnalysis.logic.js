@@ -69,7 +69,7 @@ function refreshAllArticlesList() {
 		
 		for (i=0;i<ajaxResponse.length;i++) {
 			$("#tbodyForAllArticles").append(
-				"<tr><td>"
+				"<tr id='trForArticleId"+ajaxResponse[i].article_id+"'><td>"
 				+ ajaxResponse[i].article_id
 				+ "</td>" + (ajaxResponse[i].authors != ' ' ? '<td>'+ajaxResponse[i].authors : "<td class='warning'><em>No authors listed</em>")
 				+ "</td><td>" 
@@ -130,6 +130,7 @@ function refreshAllArticlesList() {
 }
 
 function addItemToGroup(thisGroupId, thisArticleId) {
+	$("#trForArticleId"+thisArticleId).remove();
 	$.post("db-SetMembershipToArticle.php", {
 		articleId: thisArticleId,
 		groupId: thisGroupId
