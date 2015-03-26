@@ -1,5 +1,5 @@
 body {
-	font-family: 'TeX Gyre Heros', sans-serif;
+	font-family: 'Helvetica', sans-serif;
 }
 code {
 	font-family: 'Liberation Mono', monospace;
@@ -36,7 +36,6 @@ h2 {
 thead {display: table-header-group;}
 
 @media screen { body { padding: 20px; }}
-@media print { body { padding: 0px; margin: 0px; }}
 
 .bo8cell     { background: rgba(78,154,255,0.5) !important; }
 .confcell    { background: rgba(94,178,49,0.5) !important; }

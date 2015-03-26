@@ -31,6 +31,11 @@
 			left join 3971thesis_authorship aus      on aus.article_id = a.article_id
 			left join 3971thesis_authors au          on au.author_id = aus.author_id
 		where j.is_basket_of_8 = 1 and jr.pub_year > 2009
+		and a.article_id not in (
+			select article_id
+			from 3971thesis_membership
+			where group_id in (1,5)
+		)
 		group by a.article_id
 		order by m.group_id asc, jr.journal_id desc,jr.volume desc,jr.issue desc,jr.part desc,a.pg_begin desc
 	");

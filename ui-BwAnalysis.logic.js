@@ -6,62 +6,20 @@ function bodyDidLoad() {
 
 function refreshAllArticlesList() {
 	$.get("db-GetAllBwAnalysisStatus.php", function(ajaxResponse) {
-		var countersForEachField = {
-			authors:      0,
-			litcoding:    0,
-			synopsis:     0,
-			empirical:    0,
-			samplesize:   0,
-			samplesource: 0,
-			itemsCounted: 0
-		};
-		for (i=0;i<ajaxResponse.length;i++) {
-			countersForEachField.itemsCounted++;
-			if (ajaxResponse[i].authors != ' ')                  countersForEachField.authors++;
-			if (ajaxResponse[i].group_id != null)                countersForEachField.litcoding++;
-			if (ajaxResponse[i].bwanalysis_synopsis != null)     countersForEachField.synopsis++;
-			if (ajaxResponse[i].bwanalysis_empirical != null)    countersForEachField.empirical++;
-			if (ajaxResponse[i].bwanalysis_samplesize != null)   countersForEachField.samplesize++;
-			if (ajaxResponse[i].bwanalysis_samplesource != null) countersForEachField.samplesource++;
-		}
 		
 		
 		$("#tbodyForAllArticles").html(
 			"<tr><th>ID"
 			+ "</th><th>Authors"
-				+ " <small class='myRegularWeight'>("
-				+countersForEachField.authors+"/"+countersForEachField.itemsCounted
-				+"&nbsp;=&nbsp;"+Math.floor(100*countersForEachField.authors/countersForEachField.itemsCounted)+"%"
-				+")</small>"
 			+ "</th><th>Title"
 			+ "</th><th>Journal"
 			+ "</th><th>Volume"
 			+ "</th><th>Issue"
 			+ "</th><th>Literature Coding?"
-				+ " <small class='myRegularWeight'>("
-				+countersForEachField.litcoding+"/"+countersForEachField.itemsCounted
-				+"&nbsp;=&nbsp;"+Math.floor(100*countersForEachField.litcoding/countersForEachField.itemsCounted)+"%"
-				+")</small>"
 			+ "</th><th>Synopsis?"
-				+ " <small class='myRegularWeight'>("
-				+countersForEachField.synopsis+"/"+countersForEachField.itemsCounted
-				+"&nbsp;=&nbsp;"+Math.floor(100*countersForEachField.synopsis/countersForEachField.itemsCounted)+"%"
-				+")</small>"
 			+ "</th><th>Empirical?"
-				+ " <small class='myRegularWeight'>("
-				+countersForEachField.empirical+"/"+countersForEachField.itemsCounted
-				+"&nbsp;=&nbsp;"+Math.floor(100*countersForEachField.empirical/countersForEachField.itemsCounted)+"%"
-				+")</small>"
 			+ "</th><th>Sample Size"
-				+ " <small class='myRegularWeight'>("
-				+countersForEachField.samplesize+"/"+countersForEachField.itemsCounted
-				+"&nbsp;=&nbsp;"+Math.floor(100*countersForEachField.samplesize/countersForEachField.itemsCounted)+"%"
-				+")</small>"
 			+ "</th><th>Sample Source"
-				+ " <small class='myRegularWeight'>("
-				+countersForEachField.samplesource+"/"+countersForEachField.itemsCounted
-				+"&nbsp;=&nbsp;"+Math.floor(100*countersForEachField.samplesource/countersForEachField.itemsCounted)+"%"
-				+")</small>"
 			+ "</th>"
 			+ "<th>PDF</th>"
 			+ "</tr>"
@@ -80,7 +38,7 @@ function refreshAllArticlesList() {
 				+ "</td><td>" + (ajaxResponse[i].volume != ' ' ? ajaxResponse[i].volume : "<em>No volume listed</em>")
 				+ "</td><td>" + (ajaxResponse[i].issue != ' ' ? ajaxResponse[i].issue : "<em>No issue listed</em>")
 				+ "</td>" + (
-					ajaxResponse[i].group_id == null
+					ajaxResponse[i].group_id != 5 && ajaxResponse[i].group_id != 1
 					? "<td class='myAlignCenter warning'><i class='warning fa fa-question-circle'></i>" : (
 						ajaxResponse[i].group_id != 1
 						? "<td class='myAlignCenter danger'><i class='danger fa fa-times-circle'></i>"

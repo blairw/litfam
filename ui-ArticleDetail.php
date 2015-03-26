@@ -37,11 +37,13 @@ $thisArticleId = (
 	<body onload="bodyDidLoad()">
 		<div class="row">
 			<div class="col-md-6">
-				<h1 id="divArticleName"></h1>
-				<p id="pArticleSubtitle"></p>
-				<p id="pForJournalDetails"></p>
-			</div>
-			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h1 id="divArticleName"></h1>
+						<p id="pArticleSubtitle"></p>
+						<p id="pForJournalDetails"></p>
+					</div>
+				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">Overview</div>
 					<ul class="list-group" id="ulListGroupAnalysisOverview"></ul>
@@ -51,6 +53,10 @@ $thisArticleId = (
 				<div class="panel panel-default">
 					<div class="panel-heading">Groups</div>
 					<ul class="list-group" id="ulListGroupGroups"></ul>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Theories</div>
+					<ul class="list-group" id="ulListGroupTheories"></ul>
 				</div>
 			</div>
 		</div>

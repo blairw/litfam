@@ -19,12 +19,12 @@ function getArticleDetails() {
 				+"All Journals</a>"
 				+"<br />"
 				+"<a href='ui-ListJournalReleases.php?id="
-				+data[0].journal_id+"'>"
+				+data.articleDetails.journal_id+"'>"
 				+'<i class="fa fa-level-up"></i>&nbsp;'
 				+"All Releases of this Journal</a>"
 				+"<br />"
 				+"<a href='ui-ListArticlesInJournalRelease.php?id="
-				+data[0].jr_id+"'>"
+				+data.articleDetails.jr_id+"'>"
 				+'<i class="fa fa-level-up"></i>&nbsp;'
 				+"All Articles in this Release</a>"
 		);
@@ -39,64 +39,62 @@ function getArticleDetails() {
 		$("#ulListGroupGroups").html("");
 		
 		// add from db
-		document.title = '[#' + data[0].article_id + '] ' + data[0].title;
-		$("#divArticleName").append(data[0].title);
-		$("#divArticleDoi").append('<code>'+data[0].doi+'</code>');
-		if (data[0].authors) {
-			for (var i = 0; i < data[0].authors.length; i++) {
-				$("#ulAuthors").append(
-					'<li>'
-					+data[0].authors[i].author_lname
-					+(data[0].authors[i].author_fname ? ', '+data[0].authors[i].author_fname : '')
-					+(data[0].authors[i].author_mname ? ' '+data[0].authors[i].author_mname : '')
-					+(data[0].authors[i].university ? ' <small>(' : '')
-					+(data[0].authors[i].department ? data[0].authors[i].department +', ' : '')
-					+(data[0].authors[i].university ? data[0].authors[i].university : '')
-					+(data[0].authors[i].university ? ')</small>' : '')
-					+'</li>');
-			}
+		document.title = '[#' + data.articleDetails.article_id + '] ' + data.articleDetails.title;
+		$("#divArticleName").append(data.articleDetails.title);
+		$("#divArticleDoi").append('<code>'+data.articleDetails.doi+'</code>');
+		for (var i = 0; i < data.authors.length; i++) {
+			$("#ulAuthors").append(
+				'<li>'
+				+data.authors[i].author_lname
+				+(data.authors[i].author_fname ? ', '+data.authors[i].author_fname : '')
+				+(data.authors[i].author_mname ? ' '+data.authors[i].author_mname : '')
+				+(data.authors[i].university ? ' <small>(' : '')
+				+(data.authors[i].department ? data.authors[i].department +', ' : '')
+				+(data.authors[i].university ? data.authors[i].university : '')
+				+(data.authors[i].university ? ')</small>' : '')
+				+'</li>');
 		}
-		$("#divPanelBodyAbstract").append(data[0].abstract);
+		$("#divPanelBodyAbstract").append(data.articleDetails.abstract);
 		$("#ulListGroupReadThisArticle").append(
 			"<li class='list-group-item'><a target='_blank' href='../3971thesis-files/"
-			+data[0].article_id
+			+data.articleDetails.article_id
 			+".pdf'>"
 			+"Local File"
 			+"</a></li>"
 		);
-		if (data[0].url) {
+		if (data.articleDetails.url) {
 			$("#ulListGroupReadThisArticle").append(
 				"<li class='list-group-item'><a target='_blank' href='"
-				+data[0].url
+				+data.articleDetails.url
 				+"'>"
-				+data[0].url
+				+data.articleDetails.url
 				+"</a></li>"
 			);
 		}
 		$("#ulListGroupAnalysisOverview").append(
 			"<li class='list-group-item'><strong>Context + Scope of Application:</strong> "
-			+(null == data[0].bwanalysis_synopsis ? '<em>No details written.</em>' : data[0].bwanalysis_synopsis)
+			+(null == data.articleDetails.bwanalysis_synopsis ? '<em>No details written.</em>' : data.articleDetails.bwanalysis_synopsis)
 			+"</li>"
 		);
 		$("#ulListGroupAnalysisOverview").append(
 			"<li class='list-group-item'><strong>Is Empirical?</strong> "
-			+(null == data[0].bwanalysis_empirical ? '<em>Not classified.</em>' : (
-				data[0].bwanalysis_empirical == 0
+			+(null == data.articleDetails.bwanalysis_empirical ? '<em>Not classified.</em>' : (
+				data.articleDetails.bwanalysis_empirical == 0
 				? "No.&nbsp;<i class='fa fa-times'></i>"
 				: "Yes.&nbsp;<i class='fa fa-check'></i>"
 			))
 			+"</li>"
 		);
 		groupsFound = false;
-		for (i = 0; i < data[0].groups.length; i++) {
+		for (i = 0; i < data.groups.length; i++) {
 			prepareClassName = "list-group-item";
-			if (data[0].groups[i].group_id == 1) {
+			if (data.groups[i].group_id == 1) {
 				prepareClassName += " list-group-item-success";
-			} else if (data[0].groups[i].group_id == NOT_RELEVANT_VALUE) {
+			} else if (data.groups[i].group_id == NOT_RELEVANT_VALUE) {
 				prepareClassName += " list-group-item-danger";
 			}
 			$("#ulListGroupGroups").append(
-				'<li class="'+prepareClassName+'">'+data[0].groups[i].group_name+'</li>'
+				'<li class="'+prepareClassName+'">'+data.groups[i].group_name+'</li>'
 			);
 			groupsFound = true;
 		}
@@ -106,8 +104,26 @@ function getArticleDetails() {
 			);
 		}
 		
-		if (data[0].doi) {
-			getDoiDetails(data[0].doi);
+		// add Theories
+		theoriesFound = false;
+		for (i = 0; i < data.theories.length; i++) {
+			$("#ulListGroupTheories").append(
+				'<li class="list-group-item">'
+				+'<strong>'+data.theories[i].theory_name+'</strong>'
+				+'<p>'+data.theories[i].theory_details+'</p>'
+				+(data.theories[i].how_is_used ? '<p>'+data.theories[i].how_is_used+'</p>' : '')
+				+'</li>'
+			);
+			theoriesFound = true;
+		}
+		if (!theoriesFound) {
+			$("#ulListGroupTheories").append(
+				'<li class="list-group-item"><em>No theories.</em></li>'
+			);
+		}
+		
+		if (data.articleDetails.doi) {
+			getDoiDetails(data.articleDetails.doi);
 		}
 	});
 }
