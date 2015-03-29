@@ -1,4 +1,9 @@
-<?php	 
+<?php
+	if (isset($_GET['id']) && is_int((int) $_GET['id'])) {
+		// only continue if id is set and it is an int
+		$selectedId = $_GET['id'];
+	}
+	
 	// connect to mysql
 	include ('../3971thesis-db/db-MysqlAccess.php');
 	
@@ -18,12 +23,24 @@
 			downa.book_year as down_book_year
 		FROM 3971thesis_citations c
 			LEFT JOIN 3971thesis_articles upa on upa.article_id = c.original_article_id
-			LEFT JOIN 3971thesis_journal_releases upjr on upjr.jr_id = upa.jr_id
-			LEFT JOIN 3971thesis_journals upj on upj.journal_id = upjr.journal_id
+				LEFT JOIN 3971thesis_journal_releases upjr on upjr.jr_id = upa.jr_id
+					LEFT JOIN 3971thesis_journals upj on upj.journal_id = upjr.journal_id
 			LEFT JOIN 3971thesis_articles downa on downa.article_id = c.derived_article_id
-			LEFT JOIN 3971thesis_journal_releases downjr on downjr.jr_id = downa.jr_id
-			LEFT JOIN 3971thesis_journals downj on downj.journal_id = downjr.journal_id
-		ORDER BY ref_number ASC
+				LEFT JOIN 3971thesis_journal_releases downjr on downjr.jr_id = downa.jr_id
+					LEFT JOIN 3971thesis_journals downj on downj.journal_id = downjr.journal_id
+		".(
+			isset($selectedId)
+			? "
+				WHERE upa.article_id IN (
+					SELECT article_id FROM 3971thesis_membership WHERE group_id = ".$selectedId."
+				) OR downa.article_id IN (
+					SELECT article_id FROM 3971thesis_membership WHERE group_id = ".$selectedId."
+				)
+			"
+			: ""
+		)
+		."
+			ORDER BY ref_number ASC
 	");
 	
 	$citations = array();

@@ -11,8 +11,15 @@ function bodyDidLoad() {
 		return neighbors;
 	});
 	
-	$.get("db-GetAllCitations.php", function(ajaxResponse) {
-		
+	graphByGroup(selectedGroupId);
+}
+
+function graphByGroup(groupId) {
+	apiEndpointUrl = "db-GetAllCitations.php";
+	if (groupId > 0) {
+		apiEndpointUrl += ("?id=" + groupId)
+	}
+	$.get(apiEndpointUrl, function(ajaxResponse) {
 		var prepareRenderer = {
 			container: document.getElementById('sigmajsContainer'),
 			type: 'canvas'
@@ -79,6 +86,17 @@ function bodyDidLoad() {
 
 			// Same as in the previous event:
 			s.refresh();
+		});
+		
+		$.get("db-GetAllGroups.php", function(groupsAjaxResponse) {
+			for (i=0;i<groupsAjaxResponse.length;i++) {
+				$("#ulGroups").append(
+					"<li class='list-group-item'>"
+					+'<a href="ui-Graph.php?groupId='+groupsAjaxResponse[i].group_id+'">'
+					+groupsAjaxResponse[i].group_name
+					+"</a></li>"
+				);
+			}
 		});
 	});
 }

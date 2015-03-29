@@ -94,7 +94,10 @@ function getArticleDetails() {
 				prepareClassName += " list-group-item-danger";
 			}
 			$("#ulListGroupGroups").append(
-				'<li class="'+prepareClassName+'">'+data.groups[i].group_name+'</li>'
+				'<li class="'+prepareClassName+'">'
+				+'<a target="_blank" href="ui-ListArticlesInGroup.php?id='+data.groups[i].group_id+'">'
+				+data.groups[i].group_name
+				+'</a></li>'
 			);
 			groupsFound = true;
 		}

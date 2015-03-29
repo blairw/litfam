@@ -5,7 +5,7 @@ function applyDagre(graphDataInput) {
 	
 	// extract nodes from input
 	for (i = 0; i < graphDataInput.nodes.length; i++) {
-		g.setNode(graphDataInput.nodes[i].id, {label: graphDataInput.nodes[i].label, width:100, height:150});
+		g.setNode(graphDataInput.nodes[i].id, {label: graphDataInput.nodes[i].label, width:15, height:50});
 	}
 	
 	// extract edges from input

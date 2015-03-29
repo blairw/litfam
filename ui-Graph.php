@@ -1,3 +1,9 @@
+<?php
+$selectedId = (
+	isset($_GET['groupId']) && is_int((int) $_GET['groupId'])
+	? $_GET['groupId']
+	: '0');
+?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,6 +19,10 @@
 		<script src="frameworks/sigmajs/plugins/sigma.parsers.json.min.js"></script>
 		<script src="frameworks/sigmajs/plugins/sigma.layout.forceAtlas2.min.js"></script>
 		<script src="frameworks/dagre.min.js"></script>
+		
+		<script>
+			var selectedGroupId = <?php echo $selectedId; ?>;
+		</script>
 		<script src="ui-Graph.getColour.js"></script>
 		<script src="ui-Graph.applyDagre.js"></script>
 		<script src="ui-Graph.prepareTheGraph.js"></script>
@@ -45,6 +55,11 @@
 						<li class="list-group-item"><span style="color: #E59F00;">&#9608;&nbsp;&nbsp;</span>other journal, &lt;2010</li>
 						<li class="list-group-item"><span style="color: #FFDF00;">&#9608;&nbsp;&nbsp;</span>other journal, &gt;2010</li>
 						<li class="list-group-item"><span style="color: rgb(100,100,100);">&#9608;&nbsp;&nbsp;</span>no journal info</li>
+					</ul>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">Group Filter</div>
+					<ul class="list-group" id="ulGroups">
 					</ul>
 				</div>
 			</div>

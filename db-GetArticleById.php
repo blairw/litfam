@@ -20,7 +20,7 @@
 	// ARTICLE DETAILS
 	//
 	$resArticle = $mysqli->query("
-		SELECT *
+		SELECT a.*, j.journal_id, j.journal_name
 		FROM
 			3971thesis_articles a
 			LEFT JOIN 3971thesis_journal_releases jr ON jr.jr_id = a.jr_id
