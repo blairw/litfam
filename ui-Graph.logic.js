@@ -24,7 +24,7 @@ function graphByGroup(groupId) {
 			container: document.getElementById('sigmajsContainer'),
 			type: 'canvas'
 		}
-		var prepareGraph = prepareTheGraph(ajaxResponse);
+		var prepareGraph = prepareTheGraph(ajaxResponse, showLabels);
 		
 		// sigmajs
 		s = new sigma({

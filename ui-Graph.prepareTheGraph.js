@@ -7,7 +7,7 @@ function makeShortYear(fullYear) {
 	return returnObject;
 }
 
-function prepareTheGraph(ajaxResponse) {
+function prepareTheGraph(ajaxResponse, showLabels) {
 	var prepareGraph = { nodes: [], edges: [] };
 	for (i = 0; i < ajaxResponse.length; i++) {
 		thisOriginalArticleId = ajaxResponse[i].original_article_id;
@@ -24,14 +24,18 @@ function prepareTheGraph(ajaxResponse) {
 		if (!originalArticleIsFound) {
 			prepareGraph.nodes.push({
 				id: thisOriginalArticleId.toString(),
-				label: '#' + thisOriginalArticleId + (
-					ajaxResponse[i].up_book_year
-					? " ('"+makeShortYear(ajaxResponse[i].up_book_year)+')'
-					: (
-						ajaxResponse[i].up_year
-						? " ('"+makeShortYear(ajaxResponse[i].up_year)+')'
-						: ''
+				label: (
+					showLabels == true
+					? '#' + thisOriginalArticleId + (
+						ajaxResponse[i].up_book_year
+						? " ('"+makeShortYear(ajaxResponse[i].up_book_year)+')'
+						: (
+							ajaxResponse[i].up_year
+							? " ('"+makeShortYear(ajaxResponse[i].up_year)+')'
+							: ''
+						)
 					)
+					: ""
 				),
 				size: 1,
 				color: getColour(ajaxResponse[i],'up'),
@@ -54,14 +58,18 @@ function prepareTheGraph(ajaxResponse) {
 		if (!derivedArticleIdIsFound) {
 			prepareGraph.nodes.push({
 				id: thisDerivedArticleId.toString(),
-				label: '#' + thisDerivedArticleId + (
-					ajaxResponse[i].down_book_year
-					? " ('"+makeShortYear(ajaxResponse[i].down_book_year)+')'
-					: (
-						ajaxResponse[i].down_year
-						? " ('"+makeShortYear(ajaxResponse[i].down_year)+')'
-						: ''
+				label: (
+					showLabels == true
+					? '#' + thisDerivedArticleId + (
+						ajaxResponse[i].down_book_year
+						? " ('"+makeShortYear(ajaxResponse[i].down_book_year)+')'
+						: (
+							ajaxResponse[i].down_year
+							? " ('"+makeShortYear(ajaxResponse[i].down_year)+')'
+							: ''
+						)
 					)
+					: ""
 				),
 				size: 1,
 				color: getColour(ajaxResponse[i],'down'),

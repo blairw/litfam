@@ -3,6 +3,10 @@ $selectedId = (
 	isset($_GET['groupId']) && is_int((int) $_GET['groupId'])
 	? $_GET['groupId']
 	: '0');
+$showLabels = (
+	isset($_GET['showLabels'])
+	? $_GET['showLabels']
+	: "false");
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,6 +26,7 @@ $selectedId = (
 		
 		<script>
 			var selectedGroupId = <?php echo $selectedId; ?>;
+			var showLabels = <?php echo $showLabels; ?>
 		</script>
 		<script src="ui-Graph.getColour.js"></script>
 		<script src="ui-Graph.applyDagre.js"></script>
@@ -32,6 +37,9 @@ $selectedId = (
 			.panel-heading { font-size: 120%; font-weight: bold; }
 			h1 { margin-top: 0em; margin-bottom: 0.5em; }
 			.page-header { margin-top: 0; padding-top: 0; }
+			@media print {
+				#sidebar { display: none; }
+			}
 		</style>
 	</head>
 	<body onload="bodyDidLoad()">
@@ -40,11 +48,11 @@ $selectedId = (
 			<div class="col-md-10">
 				<div class="panel panel-default">
 					<div class="panel-body">
-						<div id="sigmajsContainer" style="height:75vh;margin:10px;"></div>
+						<div id="sigmajsContainer" style="height:85vh;margin:10px;"></div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-2" id="sidebar">
 				<div class="panel panel-default">
 					<div class="panel-heading">Guide</div>
 					<ul class="list-group">
