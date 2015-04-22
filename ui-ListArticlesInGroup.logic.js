@@ -19,7 +19,11 @@ function bodyDidLoad() {
 				authorsFound = true;
 				authorsString += 
 					ajaxResponse.articles[i].authors[j].author_lname
-					+ " " + ajaxResponse.articles[i].authors[j].author_fname.substring(0,1) + "."
+					+ (
+						ajaxResponse.articles[i].authors[j].author_fname
+						? " " + ajaxResponse.articles[i].authors[j].author_fname.substring(0,1) + "."
+						: ""
+					)
 					+ (
 						ajaxResponse.articles[i].authors[j].author_minitials
 						? ajaxResponse.articles[i].authors[j].author_minitials + "."

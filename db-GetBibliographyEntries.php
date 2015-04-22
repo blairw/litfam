@@ -6,13 +6,19 @@
 	$resArticles = $mysqli->query("
 		select
 			a.article_id AS article_id,
+			a.newspaper_name,
+			a.newspaper_date,
+			a.book_title,
 			a.book_year AS book_year,
 			a.book_publisher AS book_publisher,
 			jr.pub_year AS pub_year,
 			jr.custom_journal_name,
+			jr.custom_papersforthe,
+			jr.custom_conf_name,
 			jr.custom_conf_period,
 			jr.custom_conf_location,
 			a.title AS title,
+			a.disambig_letter,
 			a.doi,
 			a.url, a.display_url,
 			j.journal_name AS journal_name,
@@ -49,7 +55,7 @@
 				// matched
 				array_push($arrArticles[$i]['authors'], $row);
 				$arrArticles[$i]['authors'][count($arrArticles[$i]['authors'])-1]['authorLine'] = ''
-					.$arrArticles[$i]['authors'][count($arrArticles[$i]['authors'])-1]['author_lname']
+					.'<strong>'.$arrArticles[$i]['authors'][count($arrArticles[$i]['authors'])-1]['author_lname'].'</strong>'
 					.(
 						isset($arrArticles[$i]['authors'][count($arrArticles[$i]['authors'])-1]['author_fname'])
 						? ' '.substr($arrArticles[$i]['authors'][count($arrArticles[$i]['authors'])-1]['author_fname'],0,1).'.'
@@ -89,34 +95,71 @@
 			"article_id" => $row['article_id'],
 			"html_citation"
 				=> (isset($row['authorsLine']) ? $row['authorsLine'] : "")
-				.' '.($row['book_year'] ? $row['book_year'] : $row['pub_year']).", "
-				.($row['book_year'] ? "<em>" : "'")
+				.' <strong>'
+				.(
+					$row['newspaper_date']
+					? date("Y", strtotime($row['newspaper_date']))
+					: (
+						$row['book_year']
+						? $row['book_year']
+						: $row['pub_year']
+					)
+				)
+				.($row['disambig_letter'] ? $row['disambig_letter'] : '')
+				."</strong>"
+				.", "
+				.($row['book_year'] && !$row['book_title'] ? "<em>" : "'")
 				.$row['title']
-				.($row['book_year'] ? "</em>" : "'")
+				.($row['book_year'] && !$row['book_title'] ? "</em>" : "'")
+				.(
+					$row['journal_name'] || $row['book_title']
+					? ($row['custom_papersforthe'] ? ', in ' : ', ')
+					: ''
+				)
+				.(
+					$row['book_title']
+					? '<em>'.$row['book_title'].'</em>'
+					: (
+						$row['custom_journal_name']
+						? '<em>'.$row['custom_journal_name'].'</em>'
+						: (
+							$row['custom_conf_name']
+							? "paper presented at the ".$row['custom_conf_name']
+							: (
+								$row['journal_name']
+								? (
+									$row['is_conference'] == 1
+									? "paper presented at the ".(
+										$row['volume']
+										? getOrdinalFromNumber($row['volume'])
+										: ""
+									)." ".$row['journal_name']
+									: "<em>".$row['journal_name']."</em>"
+								)
+								: ""
+							)
+						)
+					)
+				)
+				.($row['newspaper_name'] ? ', <em>'.$row['newspaper_name'].'</em>' : '')
+				.($row['newspaper_date'] ? ', '.date("j F", strtotime($row['newspaper_date'])) : '')
+				.($row['volume'] && !$row['is_conference'] == 1 ? ', vol. '.$row['volume'] : '')
+				.($row['custom_papersforthe'] ? ', papers for the '.$row['custom_papersforthe'] : '')
+				.($row['issue'] ? ', no. '.$row['issue'] : '')
+				.($row['part'] ? ', part '.$row['part'] : '')
+				.($row['custom_conf_location'] ? ', '.$row['custom_conf_location'] : '')
+				.($row['custom_conf_period'] ? ', '.$row['custom_conf_period'].' '.$row['pub_year'] : '')
 				.($row['wp_ssrn_no'] ? ", Social Science Research Network working paper series no. ".$row['wp_ssrn_no'] : "")
 				.($row['book_publisher'] ? ", ".$row['book_publisher'] : "")
 				.(
-					$row['custom_journal_name']
-					? ', <em>'.$row['custom_journal_name'].'</em>'
-					: (
-						$row['journal_name']
-						? ", <em>".(
-							$row['is_conference'] == 1
-							? "Proceedings of the ".(
-								$row['volume']
-								? getOrdinalFromNumber($row['volume'])
-								: ""
-							)." "
-							: ""
-						).$row['journal_name'].'</em>'
-						: ""
+					$row['pg_begin'] && !$row['custom_conf_name'] && !$row['is_conference'] == 1
+					? (
+						$row['pg_begin'] == $row['pg_end']
+						? ', pg. '.$row['pg_begin']
+						: ', pp. '.$row['pg_begin'].'-'.$row['pg_end']
 					)
+					: ''
 				)
-				.($row['custom_conf_location'] ? ', '.$row['custom_conf_location'] : '')
-				.($row['custom_conf_period'] ? ', '.$row['custom_conf_period'].' '.$row['pub_year'] : '')
-				.($row['volume'] && !$row['is_conference'] == 1 ? ', vol. '.$row['volume'] : '')
-				.($row['issue'] ? ', no. '.$row['issue'] : '')
-				.($row['pg_begin'] ? ', pp. '.$row['pg_begin'].'-'.$row['pg_end'] : '')
 				.(
 					isset($row['doi'])
 					? ', viewed '.date("j F Y", strtotime($row['create_ts'])).", &lt;"."http://dx.doi.org/".$row['doi']."&gt;"
@@ -126,6 +169,7 @@
 						: ""
 					)
 				)
+				."."
 		));
 	}
 	

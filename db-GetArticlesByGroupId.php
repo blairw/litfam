@@ -35,7 +35,11 @@
 	$resArticles = $mysqli->query("
 		SELECT
 			group_concat(DISTINCT au.author_lname ORDER BY aus.sequence, aus.authorship_id) as lastnames,
-			jr.pub_year,
+			IFNULL(jr.pub_year,
+				IFNULL(a.newspaper_date, a.book_year
+				)
+			) as year,
+			a.disambig_letter,
 			a.article_id, a.title
 		FROM 3971thesis_articles a
 			LEFT JOIN 3971thesis_journal_releases jr on jr.jr_id = a.jr_id
@@ -48,7 +52,7 @@
 			WHERE group_id = ".$selectedId."
 		)
 		GROUP BY a.article_id
-		ORDER BY 1, 2
+		ORDER BY 1, 2, 3 ASC
 	");
 	while ($row = $resArticles->fetch_assoc()) {
 		array_push($outputArray["articles"], $row);

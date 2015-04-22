@@ -36,6 +36,7 @@ $selectedGroup = (
 	<body onload="bodyDidLoad()">
 		<h1 id="h1Group">Articles</h1>
 		<p id='pGroup'></p>
+		<p><strong><a target="_blank" href="ui-ListReferencesForGroup.php?id=<?php echo $selectedGroup; ?>">List References for Group</a></strong></p>
 		<table class="table">
 			<thead>
 				<tr>
