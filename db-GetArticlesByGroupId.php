@@ -40,7 +40,7 @@
 				)
 			) as year,
 			a.disambig_letter,
-			a.article_id, a.title
+			a.article_id, a.title, a.abstract, a.bwanalysis_synopsis
 		FROM 3971thesis_articles a
 			LEFT JOIN 3971thesis_journal_releases jr on jr.jr_id = a.jr_id
 				LEFT JOIN 3971thesis_journals j on j.journal_id = jr.journal_id

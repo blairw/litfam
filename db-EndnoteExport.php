@@ -14,6 +14,11 @@
 			LEFT JOIN 3971thesis_journals j on j.journal_id = jr.journal_id
 		JOIN 3971thesis_authorship aus on aus.article_id = a.article_id
 			LEFT JOIN 3971thesis_authors au on au.author_id = aus.author_id
+		WHERE a.article_id IN (
+			SELECT article_id
+			FROM 3971thesis_membership
+			WHERE group_id = 19
+		)
 	");
 	
 	$arr = array();
@@ -66,7 +71,7 @@
 	}
 	
 	header('Content-type: application/xml');
-	echo '<?xml version="1.0" encoding="UTF-8"?>';
+	echo '<?xml version="1.0" encoding="UTF-8" ?>';
 	echo '<xml>';
 	echo '<records>';
 	for ($i=0;$i<count($narr);$i++) {
@@ -82,7 +87,7 @@
 		}
 		echo '</authors></contributors>';
 		echo '<titles>';
-		echo '<title>'.$narr[$i]['title'].'</title>';
+		echo '<title>'.htmlspecialchars($narr[$i]['title']).'</title>';
 		echo '<secondary-title>'.htmlentities($narr[$i]['journal_name']).'</secondary-title>';
 		echo '</titles>';
 		echo '<periodical><full-title>'.htmlentities($narr[$i]['journal_name']).'</full-title></periodical>';
@@ -93,10 +98,11 @@
 		echo '<number>'.$narr[$i]['issue'].'</number>';
 		echo '<dates><year>'.$narr[$i]['pub_year'].'</year></dates>';
 		if (isset($narr[$i]['article_url'])) {
-			echo '<urls><related-urls><url>'.htmlentities($narr[$i]['article_url']).'</url></related-urls></urls>';
+			echo '<urls><related-urls><url>http://localhost/3971thesis-files/'.htmlentities($narr[$i]['article_id']).".pdf".'</url></related-urls></urls>';
 		}
 		echo '<electronic-resource-num>'.htmlentities($narr[$i]['doi']).'</electronic-resource-num>';
 		echo '</record>';
+		echo "\r\n";
 	}
 	echo '</records>';
 	echo '</xml>';

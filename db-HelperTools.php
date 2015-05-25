@@ -12,4 +12,29 @@ function getOrdinalFromNumber($inputNumber) {
 	}	
 }
 
+// http://stackoverflow.com/questions/2541616/how-to-escape-strip-special-characters-in-the-latex-document
+function latexSpecialChars( $string )
+{
+    $map = array( 
+            "#"=>"\\#",
+            "$"=>"\\$",
+            "%"=>"\\%",
+            "&"=>"\\&",
+            "~"=>"\\~{}",
+            "_"=>"\\_",
+            "^"=>"\\^{}",
+            "\\"=>"\\textbackslash",
+            "{"=>"\\{",
+            "}"=>"\\}",
+    );
+    return str_replace(
+		'Ö',
+		'\"{O}',
+		str_replace(
+			"ß",
+			"{\ss}",
+			preg_replace("/([\^\%~\\\\#\$%&_\{\}])/e", "\$map['$1']",$string)
+		)
+	);
+}
 ?>

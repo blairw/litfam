@@ -29,7 +29,7 @@ $selectedGroup = (
 		<!--underscore-->
 		<script src="frameworks/underscore-min.js"></script>
 		<!--other-->
-		<script src="ui-ListArticlesInGroup.logic.js"></script>
+		<script src="ui-ListWithAbstractsInGroup.logic.js"></script>
 		<link rel="stylesheet" href="common.css">
 		<link rel="icon" type="image/png" href="frameworks/fugue-subset/document-smiley.png?v=2" />
 	</head>
@@ -38,16 +38,6 @@ $selectedGroup = (
 		<p id='pGroup'></p>
 		<p><strong><a target="_blank" href="ui-ListReferencesForGroup.php?id=<?php echo $selectedGroup; ?>">List References for Group</a></strong></p>
 		<p><strong><a target="_blank" href="ui-Graph.php?groupId=<?php echo $selectedGroup; ?>&showLabels=true">Show Graph</a></strong></p>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Authors</th>
-					<th>Title</th>
-				</tr>
-			</thead>
-			<tbody id="tbodyForArticles">
-			</tbody>
-		</table>
+		<p id='output'></p>
 	</body>
 </html>

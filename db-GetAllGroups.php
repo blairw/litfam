@@ -3,7 +3,7 @@
 	include ('../3971thesis-db/db-MysqlAccess.php');
 	
 	$res = $mysqli->query("
-		SELECT * FROM 3971thesis_groups
+		SELECT * FROM 3971thesis_groups ORDER BY group_name ASC
 	");
 	
 	$arr = array();

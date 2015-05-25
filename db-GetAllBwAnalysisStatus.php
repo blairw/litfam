@@ -42,7 +42,7 @@
 	
 	$arr = array();
 	while ($row = $res->fetch_assoc()) {
-		array_push($arr, $row	);
+		array_push($arr, $row);
 	}
 	$res->close();
 	$mysqli->close();
