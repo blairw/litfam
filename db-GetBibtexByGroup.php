@@ -110,7 +110,7 @@
 		// YEAR
 		$arrArticles[$i]['documentYear'] = (
 			$arrArticles[$i]['newspaper_date']
-			? date("Y", strtotime($row['newspaper_date']))
+			? date("Y", strtotime($arrArticles[$i]['newspaper_date']))
 			: (
 				$arrArticles[$i]['book_year']
 				? $arrArticles[$i]['book_year']
