@@ -236,7 +236,7 @@
 		);
 		echo (
 			$row['pg_begin'] && !$row['custom_conf_name'] && $row['is_conference'] != 1
-			? "\r\n\t".', pages = {'.$row['pg_begin'].'--'.$row['pg_end'].'}'
+			? "\r\n\t".', pages = {'.$row['pg_begin'].'-'.$row['pg_end'].'}'
 			: ''
 		);
 		echo (
