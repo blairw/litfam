@@ -101,7 +101,7 @@
 			$arrArticles[$i]['documentType'] = 'incollection';
 		} else if (isset($arrArticles[$i]['book_year'])) {
 			$arrArticles[$i]['documentType'] = 'book';
-		} else if (isset($arrArticles[$i]['journal_name'])) {
+		} else if (isset($arrArticles[$i]['journal_name']) || isset($arrArticles[$i]['newspaper_name']) ) {
 			$arrArticles[$i]['documentType'] = 'article';
 		} else {
 			$arrArticles[$i]['documentType'] = 'misc';
@@ -173,12 +173,6 @@
 				.'. '
 				.$arrArticles[$i]['documentNote'];
 		}
-		if (isset($arrArticles[$i]['newspaper_date'])) {
-			$arrArticles[$i]['documentNote'] = 
-				date("j F", strtotime($row['newspaper_date']))
-				.'. '
-				.$arrArticles[$i]['documentNote'];
-		}
 		if (isset($arrArticles[$i]['wp_ssrn_no'])) {
 			$arrArticles[$i]['documentNote'] = 'Social Science Research Network working paper series no. '.$arrArticles[$i]['wp_ssrn_no'].'. '
 				.$arrArticles[$i]['documentNote'];
@@ -206,7 +200,7 @@
 		);
 		echo (
 			isset($row['documentUrl'])
-			? "\r\n\t".', url = {'.latexSpecialChars($row['documentUrl']).'}'
+			? "\r\n\t".', url = {\\\\\\url{'.latexSpecialChars($row['documentUrl']).'}}'
 			: ''
 		);
 		echo (
@@ -222,7 +216,11 @@
 		echo (
 			isset($row['issue']) && $row['is_conference'] != 1
 			? "\r\n\t".', number = {'.$row['issue'].'}'
-			: ''
+			: (
+				isset($row['newspaper_date'])
+				? "\r\n\t".', number = {'.date("j F", strtotime($row['newspaper_date'])).'}'
+				: ''
+			)
 		);
 		echo (
 			$row['book_title']
