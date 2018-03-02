@@ -32,6 +32,12 @@ $selectedGroup = (
 		<script src="ui-ListReferencesForGroup.logic.js"></script>
 		<link rel="stylesheet" href="common.css">
 		<link rel="icon" type="image/png" href="frameworks/fugue-subset/document-smiley.png?v=2" />
+		<style>
+			body {
+				max-width: 800px; margin: 0 auto;
+				font-size: 150%;
+			}
+		</style>
 	</head>
 	<body onload="bodyDidLoad()" id="documentBody">
 	</body>

@@ -2,6 +2,7 @@
 	
 	// connect to mysql
 	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('db-HelperTools.php');
 	
 	$res = $mysqli->query("
 		SELECT

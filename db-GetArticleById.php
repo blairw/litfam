@@ -28,6 +28,9 @@
 		WHERE a.article_id = ".$selectedId."
 	");
 	while ($rowArticle = $resArticle->fetch_assoc()) {
+		foreach ($rowArticle as $key => $value) {
+			// $rowArticle[$key] = htmlspecialchars($value);
+		}
 		$narr['articleDetails'] = $rowArticle;
 	}
 	$resArticle->close();

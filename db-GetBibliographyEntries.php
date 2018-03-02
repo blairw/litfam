@@ -38,6 +38,9 @@
 	
 	$arrArticles = array();
 	while ($row = $resArticles->fetch_assoc()) {
+		foreach ($row as $key => $value) {
+			$row[$key] = utf8ize($value);
+		}
 		array_push($arrArticles, $row);
 		$arrArticles[count($arrArticles)-1]['authors'] = array();
 	}
@@ -63,7 +66,7 @@
 					)
 					.(
 						isset($arrArticles[$i]['authors'][count($arrArticles[$i]['authors'])-1]['author_minitials'])
-						? substr($arrArticles[$i]['authors'][count($arrArticles[$i]['authors'])-1]['author_minitials'],0,1).'.'
+						? $arrArticles[$i]['authors'][count($arrArticles[$i]['authors'])-1]['author_minitials'].'.'
 						: ""
 					)
 				;
@@ -91,90 +94,92 @@
 	
 	$arrOutput = array();
 	foreach ($arrArticles as $row) {
-		array_push($arrOutput, array(
-			"article_id" => $row['article_id'],
-			"html_citation"
-				=> (isset($row['authorsLine']) ? $row['authorsLine'] : "")
-				.' <strong>'
-				.(
-					$row['newspaper_date']
-					? date("Y", strtotime($row['newspaper_date']))
-					: (
-						$row['book_year']
-						? $row['book_year']
-						: $row['pub_year']
-					)
+		$prepared_concat_string = ' <strong>'
+			.(
+				$row['newspaper_date']
+				? date("Y", strtotime($row['newspaper_date']))
+				: (
+					$row['book_year']
+					? $row['book_year']
+					: $row['pub_year']
 				)
-				.($row['disambig_letter'] ? $row['disambig_letter'] : '')
-				."</strong>"
-				.", "
-				.($row['book_year'] && !$row['book_title'] ? "<em>" : "'")
-				.$row['title']
-				.($row['book_year'] && !$row['book_title'] ? "</em>" : "'")
-				.(
-					$row['journal_name'] || $row['book_title']
-					? ($row['custom_papersforthe'] ? ', in ' : ', ')
-					: ''
-				)
-				.(
-					$row['book_title']
-					? '<em>'.$row['book_title'].'</em>'
+			)
+			.($row['disambig_letter'] ? $row['disambig_letter'] : '')
+			."</strong>"
+			.", "
+			.($row['book_year'] && !$row['book_title'] ? "<em>" : "'")
+			.$row['title']
+			.($row['book_year'] && !$row['book_title'] ? "</em>" : "'")
+			.(
+				$row['journal_name'] || $row['book_title']
+				? ($row['custom_papersforthe'] ? ', in ' : ', ')
+				: ''
+			)
+			.(
+				$row['book_title']
+				? '<em>'.$row['book_title'].'</em>'
+				: (
+					$row['custom_journal_name']
+					? '<em>'.$row['custom_journal_name'].'</em>'
 					: (
-						$row['custom_journal_name']
-						? '<em>'.$row['custom_journal_name'].'</em>'
+						$row['custom_conf_name']
+						? "paper presented at the ".$row['custom_conf_name']
 						: (
-							$row['custom_conf_name']
-							? "paper presented at the ".$row['custom_conf_name']
-							: (
-								$row['journal_name']
-								? (
-									$row['is_conference'] == 1
-									? "paper presented at the ".(
-										$row['volume']
-										? getOrdinalFromNumber($row['volume'])
-										: ""
-									)." ".$row['journal_name']
-									: "<em>".$row['journal_name']."</em>"
-								)
-								: ""
+							$row['journal_name']
+							? (
+								$row['is_conference'] == 1
+								? "paper presented at the ".(
+									$row['volume']
+									? getOrdinalFromNumber($row['volume'])
+									: ""
+								)." ".$row['journal_name']
+								: "<em>".$row['journal_name']."</em>"
 							)
+							: ""
 						)
 					)
 				)
-				.($row['newspaper_name'] ? ', <em>'.$row['newspaper_name'].'</em>' : '')
-				.($row['newspaper_date'] ? ', '.date("j F", strtotime($row['newspaper_date'])) : '')
-				.($row['volume'] && !$row['is_conference'] == 1 ? ', vol. '.$row['volume'] : '')
-				.($row['custom_papersforthe'] ? ', papers for the '.$row['custom_papersforthe'] : '')
-				.($row['issue'] ? ', no. '.$row['issue'] : '')
-				.($row['part'] ? ', part '.$row['part'] : '')
-				.($row['custom_conf_location'] ? ', '.$row['custom_conf_location'] : '')
-				.($row['custom_conf_period'] ? ', '.$row['custom_conf_period'].' '.$row['pub_year'] : '')
-				.($row['wp_ssrn_no'] ? ", Social Science Research Network working paper series no. ".$row['wp_ssrn_no'] : "")
-				.($row['book_publisher'] ? ", ".$row['book_publisher'] : "")
-				.(
-					$row['pg_begin'] && !$row['custom_conf_name'] && !$row['is_conference'] == 1
-					? (
-						$row['pg_begin'] == $row['pg_end']
-						? ', pg. '.$row['pg_begin']
-						: ', pp. '.$row['pg_begin'].'-'.$row['pg_end']
-					)
-					: ''
+			)
+			.($row['newspaper_name'] ? ', <em>'.$row['newspaper_name'].'</em>' : '')
+			.($row['newspaper_date'] ? ', '.date("j F", strtotime($row['newspaper_date'])) : '')
+			.($row['volume'] && !$row['is_conference'] == 1 ? ', vol. '.$row['volume'] : '')
+			.($row['custom_papersforthe'] ? ', papers for the '.$row['custom_papersforthe'] : '')
+			.($row['issue'] ? ', no. '.$row['issue'] : '')
+			.($row['part'] ? ', part '.$row['part'] : '')
+			.($row['custom_conf_location'] ? ', '.$row['custom_conf_location'] : '')
+			.($row['custom_conf_period'] ? ', '.$row['custom_conf_period'].' '.$row['pub_year'] : '')
+			.($row['wp_ssrn_no'] ? ", Social Science Research Network working paper series no. ".$row['wp_ssrn_no'] : "")
+			.($row['book_publisher'] ? ", ".$row['book_publisher'] : "")
+			.(
+				$row['pg_begin'] && !$row['custom_conf_name'] && !$row['is_conference'] == 1
+				? (
+					$row['pg_begin'] == $row['pg_end']
+					? ', pg. '.$row['pg_begin']
+					: ', pp. '.$row['pg_begin'].'-'.$row['pg_end']
 				)
-				.(
-					isset($row['doi'])
-					? ', viewed '.date("j F Y", strtotime($row['create_ts'])).", &lt;"."http://dx.doi.org/".$row['doi']."&gt;"
-					: (
-						$row['display_url'] == 1
-						? ', viewed '.date("j F Y", strtotime($row['create_ts'])).', &lt;'.$row['url']."&gt;"
-						: ""
-					)
+				: ''
+			)
+			.(
+				isset($row['doi']) && $row['doi'] != ""
+				? ', viewed '.date("j F Y", strtotime($row['create_ts'])).", &lt;"."http://dx.doi.org/".$row['doi']."&gt;"
+				: (
+					$row['display_url'] == 1
+					? ', viewed '.date("j F Y", strtotime($row['create_ts'])).', &lt;'.$row['url']."&gt;"
+					: ""
 				)
-				."."
+			)
+			.".";
+		array_push($arrOutput, array(
+			
+
+			"article_id" => $row['article_id'],
+			"html_citation"
+				=> (isset($row['authorsLine']) ? $row['authorsLine'] : "")
+				.$prepared_concat_string
 		));
 	}
 	
-	header('Content-type: application/json');
+	header('Content-type: application/json; charset=utf-8');
 	echo json_encode($arrOutput, JSON_PRETTY_PRINT);
-	
-	
+	// var_dump($arrOutput);
 ?>
