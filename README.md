@@ -1,31 +1,31 @@
-# 3971thesis
+# LitFam
 ## What is this?
 This is a web application of sorts that I am building to help me with my honours thesis. As at time of writing (March 2015), its primary capability is storing a relational database of journal articles for Literature Review and:
 
 ### 1) Analysing the citations between journal articles
 In the screenshot below, you see a directed graph where journal articles point upwards to those that they cite. Each article is represented by a circular node whose radius is proportional to number of instances where the article has been cited. Therefore this graph helps you identify state of the art (i.e., the journal articles which sink to the bottom), and seminal works (i.e., the journal articles which bubble to the top and/or those which have the largest size).
 
-![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/graph-ss.png?v=2)
+![Screenshot](https://raw.githubusercontent.com/blairw/LitFam/master/misc/graph-ss.png?v=2)
 
 Thanks to the magic of sigmajs, you can click on a node to highlight just that node and its neighbours (immediate citers and citees), to get a clear view of the literature contribution of a particular paper.
 
-![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/graph-filtered-ss.png?v=2)
+![Screenshot](https://raw.githubusercontent.com/blairw/LitFam/master/misc/graph-filtered-ss.png?v=2)
 
 ### 2) Assisting with literature coding
 In the screenshot below, you see a table which tracks the process of essentially filling out a form for each journal article and what kind of methodology it uses, is it relevant to the topic we are researching, etc.
 
-![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/lit-coding-ss.png?v=2)
+![Screenshot](https://raw.githubusercontent.com/blairw/LitFam/master/misc/lit-coding-ss.png?v=2)
 
 We also graph this as a line graph using chartjs to motivate you to work harder :)
-![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/lit-coding-graph-ss.png?v=4)
+![Screenshot](https://raw.githubusercontent.com/blairw/LitFam/master/misc/lit-coding-graph-ss.png?v=4)
 
 ## How do I install this?
-You will need to have mySQL server and PHP-capable webserver (e.g. Apache) installed on your system. Then you will need to clone 3971thesis into a directory in your webserver public HTML directory and set up two other directories alongside 3971thesis:
+You will need to have mySQL server and PHP-capable webserver (e.g. Apache) installed on your system. Then you will need to clone LitFam into a directory in your webserver public HTML directory and set up two other directories alongside LitFam:
 
-- 3971thesis
-- 3971thesis-db
+- LitFam
+- litfam-db
   - db-MysqlAccess.php (creates $mysqli, a new connection to your mysql database)
-- 3971thesis-files
+- litfam-files
   - 1.pdf
   - 2.pdf
   - 3.pdf
@@ -38,7 +38,7 @@ You'll also need to set up the database in mySQL. Unfortunately as at time of wr
 
 There's also not much for creating or updating data - I'm using a mySQL management tool (HeidiSQL) to do it. You might want to use something similar or set up phpMyAdmin.
 
-![Screenshot](https://raw.githubusercontent.com/blairw/3971thesis/master/misc/heidisql-ss.png)
+![Screenshot](https://raw.githubusercontent.com/blairw/LitFam/master/misc/heidisql-ss.png)
 
 ## Credits
 - *[jQuery](https://jquery.org/)*, by jQuery Foundation, [MIT License](https://jquery.org/license/)

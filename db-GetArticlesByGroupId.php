@@ -13,14 +13,14 @@
 	);
 	
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	//
 	// GROUP DETAILS
 	//
 	$resGroup = $mysqli->query("
 		SELECT *
-		FROM 3971thesis_groups
+		FROM litfam_groups
 		WHERE group_id = ".$selectedId."
 	");
 	
@@ -41,14 +41,14 @@
 			) as year,
 			a.disambig_letter,
 			a.article_id, a.title, a.abstract, a.bwanalysis_synopsis
-		FROM 3971thesis_articles a
-			LEFT JOIN 3971thesis_journal_releases jr on jr.jr_id = a.jr_id
-				LEFT JOIN 3971thesis_journals j on j.journal_id = jr.journal_id
-			LEFT JOIN 3971thesis_authorship aus on aus.article_id = a.article_id
-				LEFT JOIN 3971thesis_authors au on au.author_id = aus.author_id
+		FROM litfam_articles a
+			LEFT JOIN litfam_journal_releases jr on jr.jr_id = a.jr_id
+				LEFT JOIN litfam_journals j on j.journal_id = jr.journal_id
+			LEFT JOIN litfam_authorship aus on aus.article_id = a.article_id
+				LEFT JOIN litfam_authors au on au.author_id = aus.author_id
 		WHERE a.article_id IN (
 			SELECT article_id
-			FROM 3971thesis_membership
+			FROM litfam_membership
 			WHERE group_id = ".$selectedId."
 		)
 		GROUP BY a.article_id
@@ -67,11 +67,11 @@
 	}
 	$resAuthorships = $mysqli->query("
 		SELECT *
-		FROM 3971thesis_authorship ash
-		LEFT JOIN 3971thesis_authors a ON a.author_id = ash.author_id
+		FROM litfam_authorship ash
+		LEFT JOIN litfam_authors a ON a.author_id = ash.author_id
 		WHERE ash.article_id IN (
 			SELECT article_id
-			FROM 3971thesis_membership
+			FROM litfam_membership
 			WHERE group_id = ".$selectedId."
 		)
 		ORDER BY ash.article_id, ash.sequence, ash.authorship_id, ash.author_id

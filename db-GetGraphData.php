@@ -11,18 +11,18 @@
 	}
 
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	$res1 = $mysqli->query("
 		select distinct ca.article_id, ifnull(j.is_basket_of_8,2) as colour
 		from (
-			select original_article_id article_id from 3971thesis_citations
+			select original_article_id article_id from litfam_citations
 			union all
-			select derived_article_id article_id from 3971thesis_citations
+			select derived_article_id article_id from litfam_citations
 		) ca
-		left join 3971thesis_articles a on a.article_id = ca.article_id
-		left join 3971thesis_journal_releases jr on jr.jr_id = a.jr_id
-		left join 3971thesis_journals j on j.journal_id = jr.journal_id
+		left join litfam_articles a on a.article_id = ca.article_id
+		left join litfam_journal_releases jr on jr.jr_id = a.jr_id
+		left join litfam_journals j on j.journal_id = jr.journal_id
 	");
 	$arr1 = array();
 	while ($row1 = $res1->fetch_assoc()) {
@@ -34,7 +34,7 @@
 	$res1->close();
 	
 	$res2= $mysqli->query("
-		select * from 3971thesis_citations
+		select * from litfam_citations
 	");
 	$arr2 = array();
 	while ($row2 = $res2->fetch_assoc()) {

@@ -40,7 +40,7 @@ function bodyDidLoad() {
 			$("#output").append(
 				"<h3><strong>"
 					+"[#"+ajaxResponse.articles[i].article_id+"] "
-					+"<a href='http://localhost/3971thesis-files/"+ajaxResponse.articles[i].article_id+".pdf'>"
+					+"<a href='http://localhost/litfam-files/"+ajaxResponse.articles[i].article_id+".pdf'>"
 						+ajaxResponse.articles[i].title
 						+"</a>"
 				+"</strong></h3>"

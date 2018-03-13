@@ -1,9 +1,9 @@
 <?php
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	$res = $mysqli->query("
-		SELECT * FROM 3971thesis_groups ORDER BY group_name ASC
+		SELECT * FROM litfam_groups ORDER BY group_name ASC
 	");
 	
 	$arr = array();

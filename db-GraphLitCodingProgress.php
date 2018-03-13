@@ -1,6 +1,6 @@
 <?php
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	$res = $mysqli->query("
 		select
@@ -13,12 +13,12 @@
 			(
 				select distinct create_date from
 				(
-					select distinct date(a.create_ts) as create_date from 3971thesis_articles a
-						join 3971thesis_journal_releases jr on a.jr_id = jr.jr_id
-						join 3971thesis_journals j on j.journal_id = jr.journal_id
+					select distinct date(a.create_ts) as create_date from litfam_articles a
+						join litfam_journal_releases jr on a.jr_id = jr.jr_id
+						join litfam_journals j on j.journal_id = jr.journal_id
 						where j.is_basket_of_8 = 1 and jr.pub_year >= 2010
-					union all select distinct date(create_ts) as create_date from 3971thesis_membership where group_id = 1
-					union all select distinct date(create_ts) as create_date from 3971thesis_membership where group_id = 5
+					union all select distinct date(create_ts) as create_date from litfam_membership where group_id = 1
+					union all select distinct date(create_ts) as create_date from litfam_membership where group_id = 5
 					order by 1 asc
 				) temp
 			) alldates
@@ -27,9 +27,9 @@
 				select
 					count(a.article_id) counter_indexed,
 					date(a.create_ts) as create_date
-				from 3971thesis_articles a
-					join 3971thesis_journal_releases jr on a.jr_id = jr.jr_id
-					join 3971thesis_journals j on j.journal_id = jr.journal_id
+				from litfam_articles a
+					join litfam_journal_releases jr on a.jr_id = jr.jr_id
+					join litfam_journals j on j.journal_id = jr.journal_id
 				where j.is_basket_of_8 = 1 and jr.pub_year >= 2010
 				group by date(create_ts)
 			) articles on articles.create_date = alldates.create_date
@@ -38,7 +38,7 @@
 				select
 					count(membership_id) counter_incl,
 					date(create_ts) as create_date
-				from 3971thesis_membership
+				from litfam_membership
 				where group_id = 1
 				group by date(create_ts)
 			) includes on includes.create_date = alldates.create_date
@@ -47,7 +47,7 @@
 				select
 					count(membership_id) counter_excl,
 					date(create_ts) as create_date
-				from 3971thesis_membership
+				from litfam_membership
 				where group_id = 5
 				group by date(create_ts)
 			) excludes on excludes.create_date = alldates.create_date

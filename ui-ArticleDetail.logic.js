@@ -56,7 +56,7 @@ function getArticleDetails() {
 		}
 		$("#divPanelBodyAbstract").append(data.articleDetails.abstract);
 		$("#ulListGroupReadThisArticle").append(
-			"<li class='list-group-item'><a target='_blank' href='../3971thesis-files/"
+			"<li class='list-group-item'><a target='_blank' href='../litfam-files/"
 			+data.articleDetails.article_id
 			+".pdf'>"
 			+"Local File"

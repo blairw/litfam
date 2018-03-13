@@ -43,7 +43,7 @@ $showLabels = (
 		</style>
 	</head>
 	<body onload="bodyDidLoad()">
-		<h1 class="page-header">3971thesis paper dependencies/citations Graph</h1>
+		<h1 class="page-header">LitFam paper dependencies/citations Graph</h1>
 		<div class="row">
 			<div class="col-md-10">
 				<div class="panel panel-default">

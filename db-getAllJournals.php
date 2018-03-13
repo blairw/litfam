@@ -1,6 +1,6 @@
 <?php
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	$res = $mysqli->query("
 		SELECT
@@ -12,9 +12,9 @@
 			j.url,
 			count(distinct jr.jr_id) as count_jr,
 			count(distinct a.article_id) as count_article
-		FROM 3971thesis_journals j
-		LEFT JOIN 3971thesis_journal_releases jr on jr.journal_id = j.journal_id
-		LEFT JOIN 3971thesis_articles a on a.jr_id = jr.jr_id
+		FROM litfam_journals j
+		LEFT JOIN litfam_journal_releases jr on jr.journal_id = j.journal_id
+		LEFT JOIN litfam_articles a on a.jr_id = jr.jr_id
 		GROUP BY
 			j.journal_id,
 			j.journal_code,

@@ -1,6 +1,6 @@
 <?php
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	$res = $mysqli->query("
 		select
@@ -24,16 +24,16 @@
 			a.bwanalysis_samplesize,
 			a.bwanalysis_samplesource,
 			m.group_id
-		from 3971thesis_articles a
-			left join 3971thesis_membership m on a.article_id = m.article_id
-			left join 3971thesis_journal_releases jr on jr.jr_id = a.jr_id
-			left join 3971thesis_journals j          on j.journal_id = jr.journal_id
-			left join 3971thesis_authorship aus      on aus.article_id = a.article_id
-			left join 3971thesis_authors au          on au.author_id = aus.author_id
+		from litfam_articles a
+			left join litfam_membership m on a.article_id = m.article_id
+			left join litfam_journal_releases jr on jr.jr_id = a.jr_id
+			left join litfam_journals j          on j.journal_id = jr.journal_id
+			left join litfam_authorship aus      on aus.article_id = a.article_id
+			left join litfam_authors au          on au.author_id = aus.author_id
 		where j.is_basket_of_8 = 1 and jr.pub_year > 2009
 		and a.article_id not in (
 			select article_id
-			from 3971thesis_membership
+			from litfam_membership
 			where group_id in (1,5)
 		)
 		group by a.article_id

@@ -11,7 +11,7 @@
 	}
 	 
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	$res = $mysqli->query("
 		SELECT
@@ -19,7 +19,7 @@
 			original_article_id,
 			derived_article_id,
 			ref_number
-		FROM 3971thesis_citations
+		FROM litfam_citations
 		WHERE original_article_id = ".$selectedId."
 		OR derived_article_id = ".$selectedId."
 		ORDER BY ref_number ASC

@@ -14,7 +14,7 @@
 		'theories' => array(),
 	);
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	//
 	// ARTICLE DETAILS
@@ -22,9 +22,9 @@
 	$resArticle = $mysqli->query("
 		SELECT a.*, j.journal_id, j.journal_name
 		FROM
-			3971thesis_articles a
-			LEFT JOIN 3971thesis_journal_releases jr ON jr.jr_id = a.jr_id
-			LEFT JOIN 3971thesis_journals j ON j.journal_id = jr.journal_id
+			litfam_articles a
+			LEFT JOIN litfam_journal_releases jr ON jr.jr_id = a.jr_id
+			LEFT JOIN litfam_journals j ON j.journal_id = jr.journal_id
 		WHERE a.article_id = ".$selectedId."
 	");
 	while ($rowArticle = $resArticle->fetch_assoc()) {
@@ -40,8 +40,8 @@
 	//
 	$resAuthors = $mysqli->query("
 		SELECT *
-		FROM 3971thesis_authorship aus
-			LEFT JOIN 3971thesis_authors au ON au.author_id = aus.author_id
+		FROM litfam_authorship aus
+			LEFT JOIN litfam_authors au ON au.author_id = aus.author_id
 		WHERE aus.article_id = ".$selectedId."
 		ORDER BY aus.sequence ASC, aus.authorship_id ASC
 	");
@@ -55,8 +55,8 @@
 	//
 	$resGroups = $mysqli->query("
 		SELECT *
-		FROM 3971thesis_membership m
-		LEFT JOIN 3971thesis_groups g ON g.group_id = m.group_id
+		FROM litfam_membership m
+		LEFT JOIN litfam_groups g ON g.group_id = m.group_id
 		WHERE m.article_id = ".$selectedId."
 	");
 	while ($rowGroups = $resGroups->fetch_assoc()) {
@@ -70,8 +70,8 @@
 	//
 	$resTheory = $mysqli->query("
 		SELECT *
-		FROM 3971thesis_theory_usage tu
-		LEFT JOIN 3971thesis_theory t ON t.theory_id = tu.theory_id
+		FROM litfam_theory_usage tu
+		LEFT JOIN litfam_theory t ON t.theory_id = tu.theory_id
 		WHERE tu.article_id = ".$selectedId."
 	");
 	while ($rowTheory = $resTheory->fetch_assoc()) {

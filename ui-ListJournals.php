@@ -25,7 +25,7 @@
 		<link rel="icon" type="image/png" href="frameworks/fugue-subset/document-smiley.png?v=2" />
 	</head>
 	<body onload="bodyDidLoad()">
-		<h1>3971thesis - All Journals</h1>
+		<h1>LitFam - All Journals</h1>
 		<table class="table">
 			<thead>
 				<tr>

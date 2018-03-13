@@ -8,7 +8,7 @@
 	}
 	
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	$res = $mysqli->query("
 		SELECT
@@ -23,9 +23,9 @@
 			jr.part,
 			jr.url,
 			count(distinct a.article_id) as count_article
-		FROM 3971thesis_journal_releases jr
-		LEFT JOIN 3971thesis_journals j on j.journal_id = jr.journal_id
-		LEFT JOIN 3971thesis_articles a on a.jr_id = jr.jr_id
+		FROM litfam_journal_releases jr
+		LEFT JOIN litfam_journals j on j.journal_id = jr.journal_id
+		LEFT JOIN litfam_articles a on a.jr_id = jr.jr_id
 		WHERE j.journal_id = ".$selectedId."
 		GROUP BY jr.jr_id
 		ORDER BY volume DESC, issue DESC, part DESC

@@ -80,7 +80,7 @@ $thisArticleId = (
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
-					<div class="panel-heading">Metadata from 3971thesis database</div>
+					<div class="panel-heading">Metadata from LitFam database</div>
 					<div class="panel-body">
 						<div id="divArticleDoi"></div>
 						<div><strong>Authors:</strong></div>

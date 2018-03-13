@@ -1,7 +1,7 @@
 <?php
 	
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	include ('db-HelperTools.php');
 	
 	$res = $mysqli->query("
@@ -10,14 +10,14 @@
 			au.author_lname, au.author_fname, au.author_mname, au.author_minitials,
 			j.journal_name,
 			jr.pub_year, jr.pub_month, jr.volume, jr.issue
-		FROM 3971thesis_articles a
-		JOIN 3971thesis_journal_releases jr on jr.jr_id = a.jr_id
-			LEFT JOIN 3971thesis_journals j on j.journal_id = jr.journal_id
-		JOIN 3971thesis_authorship aus on aus.article_id = a.article_id
-			LEFT JOIN 3971thesis_authors au on au.author_id = aus.author_id
+		FROM litfam_articles a
+		JOIN litfam_journal_releases jr on jr.jr_id = a.jr_id
+			LEFT JOIN litfam_journals j on j.journal_id = jr.journal_id
+		JOIN litfam_authorship aus on aus.article_id = a.article_id
+			LEFT JOIN litfam_authors au on au.author_id = aus.author_id
 		WHERE a.article_id IN (
 			SELECT article_id
-			FROM 3971thesis_membership
+			FROM litfam_membership
 			WHERE group_id = 19
 		)
 	");
@@ -99,7 +99,7 @@
 		echo '<number>'.$narr[$i]['issue'].'</number>';
 		echo '<dates><year>'.$narr[$i]['pub_year'].'</year></dates>';
 		if (isset($narr[$i]['article_url'])) {
-			echo '<urls><related-urls><url>http://localhost/3971thesis-files/'.htmlentities($narr[$i]['article_id']).".pdf".'</url></related-urls></urls>';
+			echo '<urls><related-urls><url>http://localhost/litfam-files/'.htmlentities($narr[$i]['article_id']).".pdf".'</url></related-urls></urls>';
 		}
 		echo '<electronic-resource-num>'.htmlentities($narr[$i]['doi']).'</electronic-resource-num>';
 		echo '</record>';

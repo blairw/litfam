@@ -5,7 +5,7 @@
 	}
 	
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	
 	$res = $mysqli->query("
 		SELECT
@@ -21,20 +21,20 @@
 			downj.is_conference as down_conf,
 			downjr.pub_year as down_year,
 			downa.book_year as down_book_year
-		FROM 3971thesis_citations c
-			LEFT JOIN 3971thesis_articles upa on upa.article_id = c.original_article_id
-				LEFT JOIN 3971thesis_journal_releases upjr on upjr.jr_id = upa.jr_id
-					LEFT JOIN 3971thesis_journals upj on upj.journal_id = upjr.journal_id
-			LEFT JOIN 3971thesis_articles downa on downa.article_id = c.derived_article_id
-				LEFT JOIN 3971thesis_journal_releases downjr on downjr.jr_id = downa.jr_id
-					LEFT JOIN 3971thesis_journals downj on downj.journal_id = downjr.journal_id
+		FROM litfam_citations c
+			LEFT JOIN litfam_articles upa on upa.article_id = c.original_article_id
+				LEFT JOIN litfam_journal_releases upjr on upjr.jr_id = upa.jr_id
+					LEFT JOIN litfam_journals upj on upj.journal_id = upjr.journal_id
+			LEFT JOIN litfam_articles downa on downa.article_id = c.derived_article_id
+				LEFT JOIN litfam_journal_releases downjr on downjr.jr_id = downa.jr_id
+					LEFT JOIN litfam_journals downj on downj.journal_id = downjr.journal_id
 		".(
 			isset($selectedId)
 			? "
 				WHERE upa.article_id IN (
-					SELECT article_id FROM 3971thesis_membership WHERE group_id = ".$selectedId."
+					SELECT article_id FROM litfam_membership WHERE group_id = ".$selectedId."
 				) OR downa.article_id IN (
-					SELECT article_id FROM 3971thesis_membership WHERE group_id = ".$selectedId."
+					SELECT article_id FROM litfam_membership WHERE group_id = ".$selectedId."
 				)
 			"
 			: ""

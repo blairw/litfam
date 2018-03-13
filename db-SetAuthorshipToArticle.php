@@ -9,8 +9,8 @@
 	}
 	
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
-	if (!($stmt = $mysqli->prepare("INSERT INTO 3971thesis_authorship (author_id, article_id) VALUES (?, ?)"))) {
+	include ('../litfam-db/db-MysqlAccess.php');
+	if (!($stmt = $mysqli->prepare("INSERT INTO litfam_authorship (author_id, article_id) VALUES (?, ?)"))) {
 		echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 	}
 	

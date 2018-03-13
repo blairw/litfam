@@ -8,7 +8,7 @@
 	}
 
 	// connect to mysql
-	include ('../3971thesis-db/db-MysqlAccess.php');
+	include ('../litfam-db/db-MysqlAccess.php');
 	include ('db-HelperTools.php');
 	
 	$resArticles = $mysqli->query("
@@ -38,10 +38,10 @@
 			a.pg_end AS pg_end,
 			a.wp_ssrn_no,
 			a.create_ts
-		from 3971thesis_articles a
-			left join 3971thesis_journal_releases jr on jr.jr_id = a.jr_id
-			left join 3971thesis_journals j          on j.journal_id = jr.journal_id
-		where a.article_id in (select article_id from 3971thesis_membership where group_id = ".$selectedId.")
+		from litfam_articles a
+			left join litfam_journal_releases jr on jr.jr_id = a.jr_id
+			left join litfam_journals j          on j.journal_id = jr.journal_id
+		where a.article_id in (select article_id from litfam_membership where group_id = ".$selectedId.")
 		order by a.article_id
 	");
 	
@@ -54,8 +54,8 @@
 	
 	$resAuthors = $mysqli->query("
 		select au.author_id, author_lname, author_fname, author_mname, aus.article_id
-		from 3971thesis_authors au
-			join 3971thesis_authorship aus on aus.author_id = au.author_id
+		from litfam_authors au
+			join litfam_authorship aus on aus.author_id = au.author_id
 		order by aus.article_id, aus.sequence, aus.authorship_id
 	");
 	while ($row = $resAuthors->fetch_assoc()) {
