@@ -1,5 +1,7 @@
 body {
 	font-family: 'Helvetica Neue', sans-serif;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 code {
 	font-family: 'Liberation Mono', monospace;

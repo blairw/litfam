@@ -1,14 +1,21 @@
 var NOT_RELEVANT_VALUE = 5;
 
 function bodyDidLoad() {
-	// select2
+	console.log("bodyDidLoad");
+	// selects
+	$("#selectGroups").select2({
+		placeholder: "Add to group"
+	});
 	$("#selectAuthors").select2({
 		placeholder: "New author"
 	});
 	
+	
 	getArticleDetails();
 	getArticleBibRefs();
 	generateAuthorsSelectBox();	
+	console.log("PREPARE: generateGroupsSelectBox");
+	generateGroupsSelectBox();	
 }
 
 function getArticleDetails() {
@@ -44,7 +51,7 @@ function getArticleDetails() {
 		$("#divArticleDoi").append('<code>'+data.articleDetails.doi+'</code>');
 		for (var i = 0; i < data.authors.length; i++) {
 			$("#ulAuthors").append(
-				'<li>'
+				'<li><a href="ui-ListArticlesByAuthor.php?id=' + data.authors[i].author_id + '">'
 				+data.authors[i].author_lname
 				+(data.authors[i].author_fname ? ', '+data.authors[i].author_fname : '')
 				+(data.authors[i].author_mname ? ' '+data.authors[i].author_mname : '')
@@ -52,7 +59,7 @@ function getArticleDetails() {
 				+(data.authors[i].department ? data.authors[i].department +', ' : '')
 				+(data.authors[i].university ? data.authors[i].university : '')
 				+(data.authors[i].university ? ')</small>' : '')
-				+'</li>');
+				+'</a></li>');
 		}
 		$("#divPanelBodyAbstract").append(data.articleDetails.abstract);
 		$("#ulListGroupReadThisArticle").append(
@@ -149,6 +156,23 @@ function generateAuthorsSelectBox() {
 	});
 }
 
+function generateGroupsSelectBox() {
+	console.log("generateGroupsSelectBox");
+	$.get("db-GetAllGroups.php", function(data) {
+		// clear existing
+		$("#selectGroups").html("<option></option>");
+		
+		// add from db
+		for (var i = 0; i < data.length; i++) {
+			$("#selectGroups").append(
+				'<option value="' + data[i].group_id + '">'
+				+ data[i].group_name
+				+ '</option>'
+			);
+		}
+	});
+}
+
 function getDoiDetails(doi) {
 	$.get("http://api.crossref.org/works/"+doi, function(data) {
 		$("#divDoiDetailsPanelBody").html("");
@@ -180,6 +204,14 @@ function submitNewAuthorship() {
 			generateAuthorsSelectBox();
 		}
 	);
+}
+
+function submitNewMembership() {
+	let groups = $("#selectGroups").val()
+	for (var i = 0; i < groups.length; i++) {
+		let thisGroup = groups[i];
+		addItemToGroup(thisGroup, selectedArticleId);
+	}
 }
 
 
@@ -255,4 +287,20 @@ function makeBibRefFromId(arrayOfBibRefs, id) {
 	}
 	
 	return returnItem;
+}
+
+
+
+function addItemToGroup(thisGroupId, thisArticleId) {
+	$("#trForArticleId"+thisArticleId).remove();
+	$.post("db-SetMembershipToArticle.php", {
+		articleId: thisArticleId,
+		groupId: thisGroupId
+	}).done(
+		function(data) {
+			console.log(data);
+			getArticleDetails();
+			generateGroupsSelectBox();
+		}
+	);
 }

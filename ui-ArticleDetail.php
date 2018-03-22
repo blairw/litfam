@@ -53,6 +53,17 @@ $thisArticleId = (
 				<div class="panel panel-default">
 					<div class="panel-heading">Groups</div>
 					<ul class="list-group" id="ulListGroupGroups"></ul>
+
+					<div class="panel-footer">
+						<div class="input-group select2-bootstrap-append">
+							<select id="selectGroups" class="form-control select2" multiple="multiple">
+								<option></option>
+							</select>
+							<span class="input-group-btn">
+								<button class="btn btn-success" onclick="submitNewMembership()"><i class="fa fa-upload"></i>&nbsp;&nbsp;Save</button>
+							</span>
+						</div>
+					</div>
 				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">Theories</div>
