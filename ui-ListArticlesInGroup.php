@@ -43,6 +43,7 @@ $selectedGroup = (
 				<tr>
 					<th>ID</th>
 					<th>Authors</th>
+					<th>(Pics)</th>
 					<th>Title</th>
 				</tr>
 			</thead>

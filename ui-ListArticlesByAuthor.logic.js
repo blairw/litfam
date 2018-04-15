@@ -1,8 +1,13 @@
 function bodyDidLoad() {
 	$.get("db-GetArticlesByAuthor.php?id="+selectedAuthor, function(ajaxResponse) {
-		let fullName = ajaxResponse.author.author_lname + ", " + ajaxResponse.author.author_fname
+		let fullName = ajaxResponse.author.author_lname + ", " + ajaxResponse.author.author_fname;
 		
-		$("#h1Group").html(fullName);
+		// add image
+		let image = "<img class='litfam_author pull-right litfam_author_for_profile' src='../litfam-files/author_"
+		+ ajaxResponse.author.author_id
+		+ ".jpg' title=\"" + fullName + "\" />";
+		
+		$("#h1Group").html(fullName + image);
 		
 		$("#pGroup").html(
 			"<a href='ui-ListGroups.php'>"
@@ -11,6 +16,7 @@ function bodyDidLoad() {
 			+ "<br /><strong>Author ID:</strong> " + ajaxResponse.author.author_id
 			+ "<br /><strong>Author University:</strong> " + ajaxResponse.author.university
 			+ "<br /><strong>Author Department:</strong> " + ajaxResponse.author.department
+			+ "<br /><strong>URL:</strong> <a href=\"" + ajaxResponse.author.url + "\">" + ajaxResponse.author.url + "</a>"
 			+ "<br />"
 			+ "<br />"
 			+ "<br />"
