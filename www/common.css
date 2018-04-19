@@ -45,8 +45,8 @@ thead {display: table-header-group;}
 .abcd4cell     { background: rgba(150, 150, 0,  0.5) !important; }
 
 .bo8cell     { background: rgba(78,154,255,0.5) !important; }
-.confcell    { background: rgba(178, 49, 70, 0.2) !important; }
-.journalcell { background: rgba(94,178,49,0.5 !important; }
+.confcell    { background: rgba(178, 49, 70, 0.5) !important; }
+.journalcell { background: rgba(94,178,49,0.5) !important; }
 
 .litfam_author {
 	border-radius: 50%;

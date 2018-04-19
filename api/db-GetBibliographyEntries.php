@@ -161,7 +161,7 @@
 			)
 			.(
 				isset($row['doi']) && $row['doi'] != ""
-				? ', viewed '.date("j F Y", strtotime($row['create_ts'])).", &lt;"."http://dx.doi.org/".$row['doi']."&gt;"
+				? ", &lt;"."http://dx.doi.org/".$row['doi']."&gt;"
 				: (
 					$row['display_url'] == 1
 					? ', viewed '.date("j F Y", strtotime($row['create_ts'])).', &lt;'.$row['url']."&gt;"

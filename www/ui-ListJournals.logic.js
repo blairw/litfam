@@ -30,34 +30,12 @@ function bodyDidLoad() {
 		
 		for (i=0;i<ajaxResponse.length;i++) {
 
-			var journal_quality = null;
-			var journal_quality_css = null;
-			if (ajaxResponse[i].abdc_rank != null) {
-				switch (ajaxResponse[i].abdc_rank) {
-					case "1":
-						journal_quality = "ABDC A* journal";
-						journal_quality_css = "abcd1cell";
-						break;
-					case "2":
-						journal_quality = "ABDC A journal";
-						journal_quality_css = "abcd2cell";
-						break;
-					case "3":
-						journal_quality = "ABDC B journal";
-						journal_quality_css = "abcd3cell";
-						break;
-					case "4":
-						journal_quality = "ABDC C journal";
-						journal_quality_css = "abcd4cell";
-						break;
-					default:
-						break;
-				}
-			}
-			if (1 == ajaxResponse[i].is_basket_of_8) {
-				journal_quality = "bo8 journal";
-				journal_quality_css = "bo8cell";
-			}
+			let jqResponse = articleSourceType(
+				ajaxResponse[i].is_basket_of_8,
+				ajaxResponse[i].abdc_rank
+			);
+			var journal_quality = jqResponse["journal_quality"];
+			var journal_quality_css = jqResponse["journal_quality_css"];
 
 			$("#tbodyForJournalsTable").append(
 				"<tr>"

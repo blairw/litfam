@@ -29,6 +29,7 @@ $thisArticleId = (
 		<!--underscore-->
 		<script src="frameworks/underscore-min.js"></script>
 		<!--other-->
+		<script src="common.js"></script>
 		<script src="ui-ArticleDetail.logic.js"></script>
 		<link rel="stylesheet" href="common.css">
 		<link rel="stylesheet" href="ui-ArticleDetail.css">

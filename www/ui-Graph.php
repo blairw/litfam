@@ -28,6 +28,7 @@ $showLabels = (
 			var selectedGroupId = <?php echo $selectedId; ?>;
 			var showLabels = <?php echo $showLabels; ?>
 		</script>
+		<script src="common.js"></script>
 		<script src="ui-Graph.getColour.js"></script>
 		<script src="ui-Graph.applyDagre.js"></script>
 		<script src="ui-Graph.prepareTheGraph.js"></script>

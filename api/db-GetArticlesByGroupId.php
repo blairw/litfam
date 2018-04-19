@@ -40,7 +40,10 @@
 				)
 			) as year,
 			a.disambig_letter,
-			a.article_id, a.title, a.abstract, a.bwanalysis_synopsis
+			a.article_id, a.title, a.abstract, a.bwanalysis_synopsis,
+			j.is_basket_of_8,
+			j.abdc_rank,
+			j.is_conference
 		FROM litfam_articles a
 			LEFT JOIN litfam_journal_releases jr on jr.jr_id = a.jr_id
 				LEFT JOIN litfam_journals j on j.journal_id = jr.journal_id
