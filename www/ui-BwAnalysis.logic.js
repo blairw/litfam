@@ -89,7 +89,7 @@ function refreshAllArticlesList() {
 
 function addItemToGroup(thisGroupId, thisArticleId) {
 	$("#trForArticleId"+thisArticleId).remove();
-	$.post("db-SetMembershipToArticle.php", {
+	$.post("../api/db-SetMembershipToArticle.php", {
 		articleId: thisArticleId,
 		groupId: thisGroupId
 	}).done(

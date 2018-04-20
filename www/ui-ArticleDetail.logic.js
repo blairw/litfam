@@ -174,7 +174,7 @@ function generateGroupsSelectBox() {
 }
 
 function getDoiDetails(doi) {
-	$.get("../api/http://api.crossref.org/works/"+doi, function(data) {
+	$.get("http://api.crossref.org/works/"+doi, function(data) {
 		$("#divDoiDetailsPanelBody").html("");
 		console.log(data);
 		if (data.message.author) {
@@ -194,7 +194,7 @@ function getDoiDetails(doi) {
 }
 
 function submitNewAuthorship() {
-	$.post("db-SetAuthorshipToArticle.php", {
+	$.post("../api/db-SetAuthorshipToArticle.php", {
 		articleId: selectedArticleId,
 		'authorIds[]': $("#selectAuthors").val()
 	}).done(
@@ -293,7 +293,7 @@ function makeBibRefFromId(arrayOfBibRefs, id) {
 
 function addItemToGroup(thisGroupId, thisArticleId) {
 	$("#trForArticleId"+thisArticleId).remove();
-	$.post("db-SetMembershipToArticle.php", {
+	$.post("../api/db-SetMembershipToArticle.php", {
 		articleId: thisArticleId,
 		groupId: thisGroupId
 	}).done(

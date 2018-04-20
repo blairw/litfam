@@ -15,7 +15,7 @@ function bodyDidLoad() {
 }
 
 function graphByGroup(groupId) {
-	apiEndpointUrl = "db-GetAllCitations.php";
+	apiEndpointUrl = "../api/db-GetAllCitations.php";
 	if (groupId > 0) {
 		apiEndpointUrl += ("?id=" + groupId)
 	}
