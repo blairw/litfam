@@ -134,15 +134,13 @@
 		);
 		
 		// URL
-		if (isset($arrArticles[$i]['doi'])) {
-			$arrArticles[$i]['documentUrl'] = 'http://dx.doi.org/'.$arrArticles[$i]['doi'];
-		} else if (isset($arrArticles[$i]['url']) && $arrArticles[$i]['display_url'] == 1) {
+		if (isset($arrArticles[$i]['url']) && $arrArticles[$i]['display_url'] == 1) {
 			$arrArticles[$i]['documentUrl'] = $arrArticles[$i]['url'];
 		}
 		
 		// NOTES
 		$arrArticles[$i]['documentNote'] = '';
-		if (isset($arrArticles[$i]['documentUrl'])) {
+		if (isset($arrArticles[$i]['documentUrl']) && !isset($arrArticles[$i]['doi	'])) {
 			$arrArticles[$i]['documentNote'] = 'Viewed '.date("j F Y", strtotime($arrArticles[$i]['create_ts']));
 		}
 		if ($arrArticles[$i]['is_conference'] == 1 || isset($arrArticles[$i]['custom_papersforthe'])) {
