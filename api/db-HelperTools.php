@@ -43,12 +43,9 @@ function utf8ize($d) {
 // http://stackoverflow.com/questions/2541616/how-to-escape-strip-special-characters-in-the-latex-document
 function latexSpecialChars( $string )
 {
-    return str_replace(
-		'Ö',
-		'\"{O}',
-		str_replace(
-			"ß",
-			"{\ss}",
+    return str_replace('Ö', '\"{O}',
+	    str_replace( "ß", "{\ss}",
+        str_replace( "ü","{\\\"u}",
 			preg_replace_callback(
                 "/([\^\%~\\\\#\$%&_\{\}])/",
                 function($matches){
@@ -70,6 +67,7 @@ function latexSpecialChars( $string )
                     }
                 },
                 $string
+            )
             )
 		)
 	);

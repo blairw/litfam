@@ -19,10 +19,12 @@
 	//
 	// ARTICLE DETAILS
 	//
+
+	// TODO: fix baskets
 	$resArticle = $mysqli->query("
 		SELECT a.*, j.journal_id, j.journal_name,
-			j.is_basket_of_8,
-			j.abdc_rank,
+			-- j.is_basket_of_8,
+			-- j.abdc_rank,
 			j.is_conference
 		FROM
 			litfam_articles a

@@ -7,8 +7,6 @@
 			j.journal_id,
 			j.journal_code,
 			j.journal_name,
-			j.is_basket_of_8,
-			j.abdc_rank,
 			j.is_conference,
 			j.url,
 			count(distinct jr.jr_id) as count_jr,
@@ -20,8 +18,6 @@
 			j.journal_id,
 			j.journal_code,
 			j.journal_name,
-			j.is_basket_of_8,
-			j.abdc_rank,
 			j.is_conference,
 			j.url
 	");

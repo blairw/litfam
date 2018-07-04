@@ -7,13 +7,14 @@
 	// connect to mysql
 	include ('../secret/db-MysqlAccess.php');
 	
+	// TODO: fix basket of 8
 	$res = $mysqli->query("
 		SELECT
 			c.citation_id,
 			c.original_article_id,
 			c.derived_article_id,
 			c.ref_number,
-			upj.is_basket_of_8 as up_b8,
+			-- upj.is_basket_of_8 as up_b8,
 			upj.is_conference as up_conf,
 			upjr.pub_year as up_year,
 			upa.book_year as up_book_year,

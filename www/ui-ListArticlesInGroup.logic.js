@@ -15,6 +15,7 @@ function bodyDidLoad() {
 		for (i=0;i<ajaxResponse.articles.length;i++) {
 
 			// article type
+			// TODO: fix colours
 			let jqResponse = articleSourceType(
 				ajaxResponse.articles[i].is_basket_of_8,
 				ajaxResponse.articles[i].abdc_rank
